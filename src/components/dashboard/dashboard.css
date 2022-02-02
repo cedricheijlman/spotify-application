@@ -1,1 +1,23 @@
+#dashboard {
+  border: 1px solid red;
+  height: auto;
+  display: flex;
+}
 
+.dashboard__left {
+  flex: 0.3;
+  height: 90vh;
+  border: 1px solid green;
+}
+
+.dashboard__right {
+  flex: 0.7;
+  border: 1px solid greenyellow;
+  height: 120vh;
+}
+
+.player {
+  width: 100%;
+  bottom: 0;
+  position: fixed;
+}
