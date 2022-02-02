@@ -5,13 +5,15 @@
 }
 
 .dashboard__left {
-  flex: 0.3;
+  flex: 0.18;
   height: 90vh;
   border: 1px solid green;
+  display: flex;
+  flex-direction: column;
 }
 
 .dashboard__right {
-  flex: 0.7;
+  flex: 0.82;
   border: 1px solid greenyellow;
   height: 120vh;
 }

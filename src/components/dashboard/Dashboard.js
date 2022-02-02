@@ -10,15 +10,25 @@ function Dashboard({ accessKeyApi }) {
 
   useEffect(() => {
     spotifyApi.setAccessToken(accessKeyApi);
-  }, []);
+  }, [accessKeyApi]);
 
   return (
     <>
       <div id="dashboard">
-        <div className="dashboard__left"></div>
+        <div className="dashboard__left">
+          <div className="logo">
+            <h2>Logo</h2>
+          </div>
+          <div>
+            <h2>Logo</h2>
+          </div>
+        </div>
         <div className="dashboard__right"></div>
         <div className="player">
-          <SpotifyPlayer token={accessKeyApi} />
+          <SpotifyPlayer
+            uris={["spotify:album:6Fr2rQkZ383FcMqFyT7yPr"]}
+            token={accessKeyApi}
+          />
         </div>
       </div>
     </>

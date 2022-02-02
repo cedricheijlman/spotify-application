@@ -5,7 +5,7 @@ import Dashboard from "./components/dashboard/Dashboard";
 import Login from "./components/login/Login";
 
 function App() {
-  const [accessKeyApi, setAccessKey] = useState(null);
+  const [accessKeyApi, setAccessKeyApi] = useState(null);
   const client_id = process.env.REACT_APP_CLIENT_ID;
   const redirect_uri = "http://localhost:3000";
 
@@ -19,16 +19,29 @@ function App() {
   url += "&redirect_uri=" + redirect_uri;
 
   useEffect(() => {
-    const accessKeyApi = window.location.hash.substring(
-      14,
-      window.location.hash.indexOf("&")
-    );
-    setAccessKey(accessKeyApi);
+    if (
+      sessionStorage.getItem("accessToken") === null ||
+      sessionStorage.getItem("accessToken") === ""
+    ) {
+      const accessKeyApiUrl = window.location.hash.substring(
+        14,
+        window.location.hash.indexOf("&")
+      );
+      sessionStorage.setItem("accessToken", `${accessKeyApiUrl}`);
+      setAccessKeyApi(accessKeyApiUrl);
+      window.location.hash = "";
+    }
   }, []);
+
   return (
     <div className="App">
-      {accessKeyApi ? (
-        <Dashboard accessKeyApi={accessKeyApi} />
+      {sessionStorage.getItem("accessToken") !== "" &&
+      sessionStorage.getItem("accessToken") !== null ? (
+        <Dashboard
+          accessKeyApi={
+            accessKeyApi ? accessKeyApi : sessionStorage.getItem("accessToken")
+          }
+        />
       ) : (
         <Login url={url} />
       )}
