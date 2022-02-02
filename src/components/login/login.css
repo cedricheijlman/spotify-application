@@ -1,0 +1,29 @@
+.login {
+  padding: 16px;
+  background-color: rgb(83, 160, 83);
+  border-radius: 10px;
+  transition: all 0.5s;
+}
+
+.login:hover {
+  transform: scale(1.03);
+  cursor: pointer;
+}
+
+.login i {
+  color: white;
+  margin-right: 10px;
+}
+
+.login a {
+  color: white;
+  text-decoration: none;
+}
+
+.loginPage {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}

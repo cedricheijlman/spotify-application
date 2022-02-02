@@ -5,12 +5,12 @@ import Dashboard from "./components/dashboard/Dashboard";
 import Login from "./components/login/Login";
 
 function App() {
-  const [accessKey, setAccessKey] = useState(null);
-  const client_id = "a50a34afe4fb4f0a92b1ef6647595070";
+  const [accessKeyApi, setAccessKey] = useState(null);
+  const client_id = process.env.REACT_APP_CLIENT_ID;
   const redirect_uri = "http://localhost:3000";
 
   const scope =
-    "user-read-private user-read-email user-library-read user-follow-read user-top-read user-read-recently-played playlist-read-collaborative";
+    "user-read-private user-read-playback-state user-read-email user-library-read user-follow-read user-top-read user-read-recently-played playlist-read-collaborative";
 
   let url = "https://accounts.spotify.com/authorize";
   url += "?response_type=token";
@@ -19,15 +19,19 @@ function App() {
   url += "&redirect_uri=" + redirect_uri;
 
   useEffect(() => {
-    const accessKey = window.location.hash.substring(
+    const accessKeyApi = window.location.hash.substring(
       14,
       window.location.hash.indexOf("&")
     );
-    setAccessKey(accessKey);
+    setAccessKey(accessKeyApi);
   }, []);
   return (
     <div className="App">
-      {accessKey ? <Dashboard accessKey={accessKey} /> : <Login url={url} />}
+      {accessKeyApi ? (
+        <Dashboard accessKeyApi={accessKeyApi} />
+      ) : (
+        <Login url={url} />
+      )}
     </div>
   );
 }

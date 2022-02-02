@@ -1,13 +1,27 @@
-import React, { useEffect } from "react";
-
+import React, { useEffect, useState } from "react";
+import "./dashboard.css";
 import SpotifyWebApi from "spotify-web-api-js";
+let spotifyApi = new SpotifyWebApi();
 
-function Dashboard({ accessKey }) {
+function Dashboard({ accessKeyApi }) {
+  const [result, setResult] = useState(null);
+
   useEffect(() => {
-    let spotifyApi = new SpotifyWebApi();
-    spotifyApi.setAccessToken(accessKey);
+    spotifyApi.setAccessToken(accessKeyApi);
   }, []);
-  return <div>{accessKey}</div>;
+
+  useEffect(() => {
+    spotifyApi.getMyCurrentPlayingTrack({}, (err, data) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(data);
+        setResult(data);
+      }
+    });
+  }, []);
+
+  return <div>{result && <h1>{result.item.name}</h1>}</div>;
 }
 
 export default Dashboard;
