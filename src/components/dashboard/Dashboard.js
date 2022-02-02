@@ -10,18 +10,7 @@ function Dashboard({ accessKeyApi }) {
     spotifyApi.setAccessToken(accessKeyApi);
   }, []);
 
-  useEffect(() => {
-    spotifyApi.getMyCurrentPlayingTrack({}, (err, data) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log(data);
-        setResult(data);
-      }
-    });
-  }, []);
-
-  return <div>{result && <h1>{result.item.name}</h1>}</div>;
+  return <div>{}</div>;
 }
 
 export default Dashboard;
