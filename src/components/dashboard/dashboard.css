@@ -17,6 +17,7 @@
 .dashboard__right {
   flex: 0.82;
   background-color: transparent;
+  padding: 25px 23px 10px 23px;
 }
 
 .player {

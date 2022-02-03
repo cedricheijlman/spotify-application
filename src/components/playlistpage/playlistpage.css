@@ -1,0 +1,44 @@
+#playlistPage {
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+
+.playlistPage__info {
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 1px solid rgba(143, 143, 143, 0.495);
+  padding-bottom: 20px;
+}
+
+#playlistPage .playlistType {
+  text-transform: uppercase;
+  margin-top: 15px;
+}
+
+.playlistPage__info img {
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.playlistPage__infoText {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.playlistPage__infoText h2 {
+  font-size: 56px;
+}
+
+.playlistOwnerAndTracks {
+  margin-top: 5px;
+  display: flex;
+}
+
+.playlistOwnerAndTracks p {
+  margin-right: 10px;
+}
