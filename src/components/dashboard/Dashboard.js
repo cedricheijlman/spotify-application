@@ -12,10 +12,14 @@ import { CurrentTrackContext } from "../../CurrentTrackContext";
 
 function Dashboard({ accessKeyApi }) {
   const { currentTrack, setCurrentTrack } = useContext(CurrentTrackContext);
+  const [play, setPlay] = useState(false);
 
   // Initialize Wrapper and set AccessCode
   let spotifyApi = new SpotifyWebApi();
   const setAccessCode = useSpotifyWrapper(accessKeyApi, spotifyApi);
+
+  // Play
+  useEffect(() => setPlay(true), [currentTrack]);
 
   return (
     <>
@@ -49,6 +53,10 @@ function Dashboard({ accessKeyApi }) {
             autoPlay={true}
             uris={currentTrack ? [`${currentTrack}`] : []}
             token={accessKeyApi}
+            callback={(state) => {
+              if (!state.isPlaying) setPlay(false);
+            }}
+            play={play}
           />
         </div>
       </div>
