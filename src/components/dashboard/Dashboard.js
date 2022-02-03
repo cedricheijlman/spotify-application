@@ -23,19 +23,18 @@ function Dashboard({ accessKeyApi }) {
           <div className="dashboard__logo">
             <h1>Logo</h1>
           </div>
-          <div className="dashboard__category">
-            <Link to="/">
+          <Link to="/">
+            <div className="dashboard__category">
               <HomeOutlinedIcon className="category__logo" />
               <p>Home</p>
-            </Link>
-          </div>
-
-          <div className="dashboard__category">
-            <Link to="/discover">
+            </div>
+          </Link>
+          <Link to="/discover">
+            <div className="dashboard__category">
               <ExploreOutlinedIcon className="category__logo" />
               <p>Discover</p>
-            </Link>
-          </div>
+            </div>
+          </Link>
         </div>
         <div className="dashboard__right">
           <Routes>
@@ -45,7 +44,10 @@ function Dashboard({ accessKeyApi }) {
           </Routes>
         </div>
         <div className="player">
-          <SpotifyPlayer token={accessKeyApi} />
+          <SpotifyPlayer
+            uris={"spotify:track:5enxwA8aAbwZbf5qCHORXi"}
+            token={accessKeyApi}
+          />
         </div>
       </div>
     </>

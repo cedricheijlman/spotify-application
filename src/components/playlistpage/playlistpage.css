@@ -64,7 +64,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 20px 0;
+  margin: 10px 0;
   border: 1px solid rgba(0, 0, 0, 0.112);
   padding: 9px;
   border-radius: 5px;
@@ -98,8 +98,8 @@
   font-weight: 400;
 }
 
-.playlistPage__trackItemLeft .time {
-  margin-right: 15px;
+.playlistPage__trackItem .time {
+  margin-right: 10px;
 }
 
 .playlistPage__trackItem img {
