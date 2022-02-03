@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import SpotifyWebApi from "spotify-web-api-js";
 import { CurrentTrackContext } from "../../CurrentTrackContext";
 import useSpotifyWrapper from "../../useSpotifyWrapper";
@@ -79,15 +80,19 @@ function PlaylistPage() {
                   >
                     <div className="playlistPage__trackItemLeft">
                       <p className="trackNumber">{index + 1}</p>
-                      <img
-                        height={60}
-                        src={
-                          item.track.album.images[0]
-                            ? item.track.album.images[0].url
-                            : ""
-                        }
-                      />
-
+                      <Link
+                        title={item.track.album.name}
+                        to={`/album/${item.track.album.id}`}
+                      >
+                        <img
+                          height={60}
+                          src={
+                            item.track.album.images[0]
+                              ? item.track.album.images[0].url
+                              : ""
+                          }
+                        />
+                      </Link>
                       <div className="trackNameAndArtist">
                         <h5>{item.track.name}</h5>
                         <h6>{item.track.artists[0].name}</h6>
