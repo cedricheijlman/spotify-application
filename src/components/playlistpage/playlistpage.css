@@ -1,3 +1,5 @@
+/* Playlist Page Container */
+
 #playlistPage {
   min-height: 90vh;
   display: flex;
@@ -5,9 +7,13 @@
   padding: 15px;
 }
 
+/* Playlist Page Info:
+
+{Playlist Image, Type, Name, description, Owner, Tracks Length} */
+
 .playlistPage__info {
   display: flex;
-  flex-wrap: wrap;
+
   border-bottom: 1px solid rgba(143, 143, 143, 0.495);
   padding-bottom: 20px;
 }
@@ -17,9 +23,14 @@
   margin-top: 15px;
 }
 
+#playlistPage .playlistDescription {
+  font-size: 13px;
+}
+
 .playlistPage__info img {
   border-radius: 5px;
-  margin-right: 10px;
+  margin-right: 25px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
 }
 
 .playlistPage__infoText {
@@ -31,8 +42,10 @@
 }
 
 .playlistPage__infoText h2 {
-  font-size: 56px;
+  font-size: 38px;
 }
+
+/* PlaylistPage Owner And Tracks Length div */
 
 .playlistOwnerAndTracks {
   margin-top: 5px;
@@ -41,4 +54,50 @@
 
 .playlistOwnerAndTracks p {
   margin-right: 10px;
+}
+
+/* Track List */
+
+.playlistPage__trackItem {
+  background-color: rgba(255, 255, 255, 0.666);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 0;
+  border: 1px solid rgba(0, 0, 0, 0.112);
+  padding: 9px;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+  transition: all 0.5s;
+}
+.playlistPage__trackItem:hover {
+  transform: scale(1.01);
+  cursor: pointer;
+}
+
+.playlistPage__trackItemLeft {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+}
+
+.playlistPage__trackItemLeft .trackNumber {
+  margin-right: 25px;
+}
+
+.playlistPage__trackItemLeft .trackNameAndArtist h5 {
+  font-size: 15px;
+  margin-bottom: 3px;
+  font-weight: 500;
+}
+
+.playlistPage__trackItemLeft .trackNameAndArtist h6 {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.playlistPage__trackItem img {
+  margin-right: 15px;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
 }

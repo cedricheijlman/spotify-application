@@ -36,16 +36,22 @@ function PlaylistPage() {
     }
   }, [playlist]);
 
+  const getSeconds = (millis) => {
+    let minutes = Math.floor(millis / 60000);
+    let seconds = ((millis % 60000) / 1000).toFixed(0);
+    return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+  };
+
   return (
     <div id="playlistPage">
       {playlist !== null && (
         <>
           <div className="playlistPage__info">
-            <img width={250} src={playlist.images[0].url} />
+            <img height={230} src={playlist.images[0].url} />
             <div className="playlistPage__infoText">
               <p className="playlistType">{playlist.type}</p>
               <h2>{playlist.name}</h2>
-              <p>{playlist.description}</p>
+              <p className="playlistDescription">{playlist.description}</p>
               <div className="playlistOwnerAndTracks">
                 <p>
                   {playlist.owner.display_name} • {playlist.tracks.total} Tracks
@@ -53,14 +59,29 @@ function PlaylistPage() {
               </div>
             </div>
           </div>
-          <div>
+          <div className="playlistPage__tracksList">
             {playlistTracks &&
-              playlistTracks.items.map((item) => {
+              playlistTracks.items.map((item, index) => {
                 return (
-                  <div>
-                    <h5>{item.track.name}</h5>
-                    <p>{item.track.artists[0].name}</p>
-                    <hr />
+                  <div className="playlistPage__trackItem">
+                    <div className="playlistPage__trackItemLeft">
+                      <p className="trackNumber">{index + 1}</p>
+                      <img
+                        height={60}
+                        src={
+                          item.track.album.images[0]
+                            ? item.track.album.images[0].url
+                            : ""
+                        }
+                      />
+
+                      <div className="trackNameAndArtist">
+                        <h5>{item.track.name}</h5>
+                        <h6>{item.track.artists[0].name}</h6>
+                      </div>
+                    </div>
+
+                    <div>{getSeconds(item.track.duration_ms)}</div>
                   </div>
                 );
               })}

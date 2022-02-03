@@ -5,12 +5,13 @@ body {
   font-family: "Montserrat";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: white;
+
   background: linear-gradient(
     180deg,
     rgba(31, 103, 191, 0.1825105042016807) 0%,
     rgba(63, 198, 142, 0.15449929971988796) 100%
   );
+  background-color: white;
 }
 
 * {
