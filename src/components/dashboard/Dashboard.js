@@ -7,6 +7,7 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import ExploreOutlinedIcon from "@mui/icons-material/ExploreOutlined";
 import Home from "../home/Home";
 import useSpotifyWrapper from "../../useSpotifyWrapper";
+import PlaylistPage from "../playlistpage/PlaylistPage";
 
 function Dashboard({ accessKeyApi }) {
   const [result, setResult] = useState(null);
@@ -40,7 +41,7 @@ function Dashboard({ accessKeyApi }) {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/discover" element={<h1>Discover</h1>} />
-            <Route path="/playlist/:id" element={<h1>Playlist</h1>} />
+            <Route path="/playlist/:id" element={<PlaylistPage />} />
           </Routes>
         </div>
         <div className="player">
