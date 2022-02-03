@@ -1,0 +1,31 @@
+#artistPage {
+  border: 1px solid red;
+  padding: 10px;
+}
+
+.artist__info {
+  display: flex;
+  align-items: center;
+}
+
+.artist__info img {
+  width: 200px;
+  border-radius: 50%;
+  margin-right: 30px;
+}
+
+.artist__infoText {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+}
+
+.artist__infoText p {
+  text-transform: capitalize;
+}
+
+.artist__infoText h2 {
+  margin-top: 5px;
+  font-size: 50px;
+}
