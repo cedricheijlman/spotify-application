@@ -72,8 +72,7 @@
   transition: all 0.5s;
 }
 .playlistPage__trackItem:hover {
-  transform: scale(1.01);
-  cursor: pointer;
+  background-color: rgb(255, 255, 255);
 }
 
 .playlistPage__trackItemLeft {
@@ -96,10 +95,21 @@
 .playlistPage__trackItemLeft .trackNameAndArtist h6 {
   font-size: 12px;
   font-weight: 400;
+  width: auto;
+  transition: all 0.2s;
+  display: inline-block;
 }
 
 .playlistPage__trackItem .time {
   margin-right: 10px;
+}
+
+.playlistPage__trackItemLeft .trackNameAndArtist h6:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  color: rgb(112, 112, 177);
+  font-weight: 500;
+  text-shadow: 1px 1px 6px rgb(121, 151, 206);
 }
 
 .playlistPage__trackItem img {
