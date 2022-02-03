@@ -33,6 +33,15 @@ function App() {
     }
   }, []);
 
+  useEffect(() => {
+    if (
+      sessionStorage.getItem("accessToken") !== null &&
+      sessionStorage.getItem("access") !== ""
+    ) {
+      setAccessKeyApi(`${sessionStorage.getItem("accessToken")}`);
+    }
+  }, []);
+
   return (
     <div className="App">
       {sessionStorage.getItem("accessToken") !== "" &&

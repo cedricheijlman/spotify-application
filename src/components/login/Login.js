@@ -10,7 +10,7 @@ function Login({ url }) {
       className="loginPage"
     >
       <h2>Spotify V2 Web App </h2>
-      <p>The better spotify </p>
+
       <div className="login">
         <i className="fab fa-spotify"></i>
         <a href={url}>Login with spotify</a>
