@@ -51,7 +51,11 @@ function AlbumPage() {
               <h2>{album.name}</h2>
               <div className="albumOwnerAndTracks">
                 <p>
-                  {album.artists[0].name} • {album.tracks.total} Tracks
+                  <Link to={`/artist/${album.artists[0].id}`}>
+                    {album.artists[0].name}
+                  </Link>{" "}
+                  • {album.tracks.total}{" "}
+                  {album.tracks.total == 1 ? "Track" : "Tracks"}
                 </p>
               </div>
             </div>

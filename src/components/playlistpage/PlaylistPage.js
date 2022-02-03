@@ -62,7 +62,8 @@ function PlaylistPage() {
               <p className="playlistDescription">{playlist.description}</p>
               <div className="playlistOwnerAndTracks">
                 <p>
-                  {playlist.owner.display_name} • {playlist.tracks.total} Tracks
+                  {playlist.owner.display_name} • {playlist.tracks.total}{" "}
+                  {playlist.tracks.total == 1 ? "Track" : "Tracks"}
                 </p>
               </div>
             </div>
@@ -88,7 +89,17 @@ function PlaylistPage() {
                           className="playlistPage__trackItem"
                         >
                           <div className="playlistPage__trackItemLeft">
-                            <p className="trackNumber">{index + 1}</p>
+                            <div
+                              style={{
+                                width: 34,
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                marginRight: 5,
+                              }}
+                            >
+                              <p className="trackNumber">{index + 1}</p>
+                            </div>
                             <Link
                               title={item.track.album.name}
                               to={`/album/${item.track.album.id}`}
