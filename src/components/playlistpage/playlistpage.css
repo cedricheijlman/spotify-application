@@ -5,6 +5,7 @@
   display: flex;
   flex-direction: column;
   padding: 15px;
+  background-color: transparent !important;
 }
 
 /* Playlist Page Info:
@@ -82,7 +83,8 @@
 }
 
 .playlistPage__trackItemLeft .trackNumber {
-  margin-right: 25px;
+  margin-right: 20px;
+  margin-left: 12px;
 }
 
 .playlistPage__trackItemLeft .trackNameAndArtist h5 {
@@ -94,6 +96,10 @@
 .playlistPage__trackItemLeft .trackNameAndArtist h6 {
   font-size: 12px;
   font-weight: 400;
+}
+
+.playlistPage__trackItemLeft .time {
+  margin-right: 15px;
 }
 
 .playlistPage__trackItem img {

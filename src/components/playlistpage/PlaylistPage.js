@@ -81,7 +81,11 @@ function PlaylistPage() {
                       </div>
                     </div>
 
-                    <div>{getSeconds(item.track.duration_ms)}</div>
+                    <div>
+                      <p className="time">
+                        {getSeconds(item.track.duration_ms)}
+                      </p>
+                    </div>
                   </div>
                 );
               })}
