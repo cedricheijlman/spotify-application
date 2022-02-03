@@ -74,7 +74,7 @@ function PlaylistPage() {
                 .filter((item) => item.track !== null)
                 .map((item, index) => {
                   return (
-                    <>
+                    <React.Fragment key={index}>
                       {item.track !== null && (
                         <div
                           onClick={(e) => {
@@ -137,7 +137,7 @@ function PlaylistPage() {
                           </div>
                         </div>
                       )}
-                    </>
+                    </React.Fragment>
                   );
                 })}
           </div>

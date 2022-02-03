@@ -64,7 +64,7 @@ function AlbumPage() {
             {album.tracks &&
               album.tracks.items.map((item, index) => {
                 return (
-                  <>
+                  <React.Fragment key={index}>
                     {item !== null && (
                       <div
                         onClick={(e) => {
@@ -103,7 +103,7 @@ function AlbumPage() {
                         </div>
                       </div>
                     )}
-                  </>
+                  </React.Fragment>
                 );
               })}
           </div>
