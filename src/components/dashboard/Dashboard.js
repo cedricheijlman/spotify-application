@@ -6,18 +6,14 @@ import { Link, Route, Routes } from "react-router-dom";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import ExploreOutlinedIcon from "@mui/icons-material/ExploreOutlined";
 import Home from "../home/Home";
+import useSpotifyWrapper from "../../useSpotifyWrapper";
 
 function Dashboard({ accessKeyApi }) {
-  let spotifyApi = new SpotifyWebApi();
   const [result, setResult] = useState(null);
 
-  useEffect(() => {
-    spotifyApi.setAccessToken(accessKeyApi);
-    setResult("done");
-    spotifyApi.getFeaturedPlaylists({}, (res) => {
-      console.log(res);
-    });
-  }, [accessKeyApi]);
+  // Initialize Wrapper and set AccessCode
+  let spotifyApi = new SpotifyWebApi();
+  const setAccessCode = useSpotifyWrapper(accessKeyApi, spotifyApi);
 
   return (
     <>
@@ -42,7 +38,7 @@ function Dashboard({ accessKeyApi }) {
         </div>
         <div className="dashboard__right">
           <Routes>
-            <Route path="/" element={<Home spotifyApi={spotifyApi} />} />
+            <Route path="/" element={<Home />} />
             <Route path="/discover" element={<h1>Discover</h1>} />
           </Routes>
         </div>
