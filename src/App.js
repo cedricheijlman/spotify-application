@@ -13,7 +13,7 @@ function App() {
   const client_id = process.env.REACT_APP_CLIENT_ID;
 
   // Url for spotify Authentication
-  const redirect_uri = "https://spotify-application.netlify.app";
+  const redirect_uri = "https://spotify-application.netlify.app/";
   const scope =
     "user-read-private user-read-playback-state user-read-email user-library-read user-follow-read user-top-read user-read-recently-played playlist-read-collaborative";
 
