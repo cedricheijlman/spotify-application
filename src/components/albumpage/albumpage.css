@@ -52,3 +52,64 @@
 .albumOwnerAndTracks p {
   margin-right: 10px;
 }
+
+/* Track List */
+
+.albumPage__trackItem {
+  background-color: rgba(255, 255, 255, 0.666);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0;
+  border: 1px solid rgba(0, 0, 0, 0.112);
+  padding: 9px;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+  transition: all 0.5s;
+}
+.albumPage__trackItem:hover {
+  background-color: rgb(255, 255, 255);
+}
+
+.albumPage__trackItemLeft {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+}
+
+.albumPage__trackItemLeft .trackNumber {
+  margin-right: 20px;
+  margin-left: 12px;
+}
+
+.albumPage__trackItemLeft .trackNameAndArtist h5 {
+  font-size: 15px;
+  margin-bottom: 3px;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 500;
+}
+
+.albumPage__trackItemLeft .trackNameAndArtist h6 {
+  font-size: 13px;
+  font-weight: 400;
+  width: auto;
+  transition: all 0.2s;
+  z-index: 99;
+  display: inline-block;
+}
+
+.albumPage__trackItem .trackNameAndArtist {
+  display: flex;
+  flex-direction: column;
+}
+
+.albumPage__trackItem .time {
+  margin-right: 10px;
+}
+
+.albumPage__trackItemLeft .trackNameAndArtist h6:hover {
+  cursor: pointer;
+
+  border-bottom: 1px solid black;
+}

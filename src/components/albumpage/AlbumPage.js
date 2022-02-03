@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import SpotifyWebApi from "spotify-web-api-js";
 import { CurrentTrackContext } from "../../CurrentTrackContext";
 import useSpotifyWrapper from "../../useSpotifyWrapper";
@@ -32,6 +33,13 @@ function AlbumPage() {
     }
   }, [albumId]);
 
+  // Track length
+  const getSeconds = (millis) => {
+    let minutes = Math.floor(millis / 60000);
+    let seconds = ((millis % 60000) / 1000).toFixed(0);
+    return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+  };
+
   return (
     <div id="albumPage">
       {album !== null && (
@@ -48,7 +56,53 @@ function AlbumPage() {
               </div>
             </div>
           </div>
-          <div className="albumPage__tracksList"></div>
+          <div className="albumPage__tracksList">
+            {album.tracks &&
+              album.tracks.items.map((item, index) => {
+                return (
+                  <>
+                    {item !== null && (
+                      <div
+                        onClick={(e) => {
+                          if (
+                            e.target.localName !== "h6" &&
+                            e.target.localName !== "img"
+                          ) {
+                            setCurrentTrack(item.uri);
+                            console.log(e);
+                          }
+                        }}
+                        className="albumPage__trackItem"
+                      >
+                        <div className="albumPage__trackItemLeft">
+                          <p className="trackNumber">{index + 1}</p>
+
+                          <div className="trackNameAndArtist">
+                            <h5>{item.name}</h5>
+                            <div>
+                              {item.artists.map((artist, index) => (
+                                <Link to={`/artist/${artist.id}`} key={index}>
+                                  <h6>{artist.name}</h6>
+                                  <span style={{ fontWeight: 200 }}>
+                                    {item.artists.length - 1 !== index
+                                      ? ", "
+                                      : ""}
+                                  </span>
+                                </Link>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div>
+                          <p className="time">{getSeconds(item.duration_ms)}</p>
+                        </div>
+                      </div>
+                    )}
+                  </>
+                );
+              })}
+          </div>
         </>
       )}
     </div>
