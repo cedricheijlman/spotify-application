@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./home.css";
 import SpotifyWebApi from "spotify-web-api-js";
 import useSpotifyWrapper from "../../useSpotifyWrapper";
+import NewReleases from "./NewReleases";
 function Home() {
   const accessKeyApi = sessionStorage.getItem("accessToken");
 
@@ -26,16 +27,10 @@ function Home() {
         <p>Editor's Picks</p>
         <p>Editor's Picks</p>
       </div>
-      <div className="newReleasesRow">
-        {featuredPlaylists !== null &&
-          featuredPlaylists.playlists.items.map((item) => {
-            return (
-              <div className="newReleasesItem">
-                <img src={item.images[0].url} />
-                <p>{item.name}</p>
-              </div>
-            );
-          })}
+      <div className="featuredPlaylistsRow">
+        {featuredPlaylists !== null && (
+          <NewReleases featuredPlaylists={featuredPlaylists} />
+        )}
       </div>
     </div>
   );

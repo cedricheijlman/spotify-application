@@ -11,13 +11,12 @@
   flex-direction: column;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
     rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  min-height: 100vh;
 }
 
 .dashboard__right {
   flex: 0.82;
   background-color: transparent;
-  height: 120vh;
-  border: 1px solid red;
 }
 
 .player {

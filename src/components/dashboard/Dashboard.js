@@ -40,6 +40,7 @@ function Dashboard({ accessKeyApi }) {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/discover" element={<h1>Discover</h1>} />
+            <Route path="/playlist/:id" element={<h1>Playlist</h1>} />
           </Routes>
         </div>
         <div className="player">
