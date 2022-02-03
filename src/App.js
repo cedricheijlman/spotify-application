@@ -3,12 +3,17 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import Dashboard from "./components/dashboard/Dashboard";
 import Login from "./components/login/Login";
+import { CurrentTrackContext } from "./CurrentTrackContext";
 
 function App() {
   const [accessKeyApi, setAccessKeyApi] = useState(null);
-  const client_id = process.env.REACT_APP_CLIENT_ID;
-  const redirect_uri = "http://localhost:3000";
+  const [currentTrack, setCurrentTrack] = useState(null);
 
+  // get Client ID From .env File
+  const client_id = process.env.REACT_APP_CLIENT_ID;
+
+  // Url for spotify Authentication
+  const redirect_uri = "http://localhost:3000";
   const scope =
     "user-read-private user-read-playback-state user-read-email user-library-read user-follow-read user-top-read user-read-recently-played playlist-read-collaborative";
 
@@ -18,6 +23,7 @@ function App() {
   url += "&scope=" + encodeURIComponent(scope);
   url += "&redirect_uri=" + redirect_uri;
 
+  // If Accesskey hasn't been set yet, set Accesskey to sessionStorage after login
   useEffect(() => {
     if (
       sessionStorage.getItem("accessToken") === null ||
@@ -33,6 +39,7 @@ function App() {
     }
   }, []);
 
+  // set sessionStorage accessToken to current AccessToken
   useEffect(() => {
     if (
       sessionStorage.getItem("accessToken") !== null &&
@@ -44,16 +51,20 @@ function App() {
 
   return (
     <div className="App">
-      {sessionStorage.getItem("accessToken") !== "" &&
-      sessionStorage.getItem("accessToken") !== null ? (
-        <Dashboard
-          accessKeyApi={
-            accessKeyApi ? accessKeyApi : sessionStorage.getItem("accessToken")
-          }
-        />
-      ) : (
-        <Login url={url} />
-      )}
+      <CurrentTrackContext.Provider value={{ currentTrack, setCurrentTrack }}>
+        {sessionStorage.getItem("accessToken") !== "" &&
+        sessionStorage.getItem("accessToken") !== null ? (
+          <Dashboard
+            accessKeyApi={
+              accessKeyApi
+                ? accessKeyApi
+                : sessionStorage.getItem("accessToken")
+            }
+          />
+        ) : (
+          <Login url={url} />
+        )}
+      </CurrentTrackContext.Provider>
     </div>
   );
 }

@@ -1,16 +1,20 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./home.css";
 import SpotifyWebApi from "spotify-web-api-js";
 import useSpotifyWrapper from "../../useSpotifyWrapper";
 import NewReleases from "./NewReleases";
+import { CurrentTrackContext } from "../../CurrentTrackContext";
+
 function Home() {
   const accessKeyApi = sessionStorage.getItem("accessToken");
-
   const [featuredPlaylists, setFeaturedPlaylists] = useState(null);
+  const { currentTrack, setCurrentTrack } = useContext(CurrentTrackContext);
 
   // Initialize Wrapper and set AccessCode
   let spotifyApi = new SpotifyWebApi();
   const setAccessCode = useSpotifyWrapper(accessKeyApi, spotifyApi);
+
+  // Get request Featured Playlists
   useEffect(() => {
     if (!featuredPlaylists) {
       spotifyApi.getFeaturedPlaylists({ limit: 50 }, (err, data) => {
@@ -19,6 +23,7 @@ function Home() {
       });
     }
   }, [spotifyApi]);
+
   return (
     <div id="home">
       <div className="home__choose">

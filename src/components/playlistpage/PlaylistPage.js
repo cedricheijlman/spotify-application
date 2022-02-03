@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import SpotifyWebApi from "spotify-web-api-js";
+import { CurrentTrackContext } from "../../CurrentTrackContext";
 import useSpotifyWrapper from "../../useSpotifyWrapper";
 import "./playlistpage.css";
 
 function PlaylistPage() {
+  // get id playlist from url
+  const playlistId = window.location.pathname.slice(10);
+
   // Initialise Wrapper Spotify API
   const accessKeyApi = sessionStorage.getItem("accessToken");
   let spotifyApi = new SpotifyWebApi();
@@ -14,10 +18,11 @@ function PlaylistPage() {
   // setState Playlist
   const [playlist, setPlaylist] = useState(null);
   const [playlistTracks, setPlaylistTracks] = useState(null);
-  // get id playlist from url
-  const playlistId = window.location.pathname.slice(10);
 
-  //Get Playlist
+  // setState currentTrack
+  const { currentTrack, setCurrentTrack } = useContext(CurrentTrackContext);
+
+  // Get Playlist Info
   useEffect(() => {
     if (!playlist) {
       spotifyApi.getPlaylist(playlistId, {}, (err, result) => {
@@ -27,6 +32,7 @@ function PlaylistPage() {
     }
   }, [playlistId]);
 
+  // Get Playlists tracks
   useEffect(() => {
     if (playlist) {
       spotifyApi.getPlaylistTracks(playlistId, {}, (err, result) => {
@@ -36,6 +42,7 @@ function PlaylistPage() {
     }
   }, [playlist]);
 
+  // Track length
   const getSeconds = (millis) => {
     let minutes = Math.floor(millis / 60000);
     let seconds = ((millis % 60000) / 1000).toFixed(0);
@@ -63,7 +70,13 @@ function PlaylistPage() {
             {playlistTracks &&
               playlistTracks.items.map((item, index) => {
                 return (
-                  <div className="playlistPage__trackItem">
+                  <div
+                    onClick={() => {
+                      setCurrentTrack(item.track.uri);
+                      console.log(item.track.uri);
+                    }}
+                    className="playlistPage__trackItem"
+                  >
                     <div className="playlistPage__trackItemLeft">
                       <p className="trackNumber">{index + 1}</p>
                       <img

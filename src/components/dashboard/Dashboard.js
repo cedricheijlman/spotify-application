@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./dashboard.css";
 import SpotifyWebApi from "spotify-web-api-js";
 import SpotifyPlayer from "react-spotify-web-playback";
@@ -8,9 +8,10 @@ import ExploreOutlinedIcon from "@mui/icons-material/ExploreOutlined";
 import Home from "../home/Home";
 import useSpotifyWrapper from "../../useSpotifyWrapper";
 import PlaylistPage from "../playlistpage/PlaylistPage";
+import { CurrentTrackContext } from "../../CurrentTrackContext";
 
 function Dashboard({ accessKeyApi }) {
-  const [result, setResult] = useState(null);
+  const { currentTrack, setCurrentTrack } = useContext(CurrentTrackContext);
 
   // Initialize Wrapper and set AccessCode
   let spotifyApi = new SpotifyWebApi();
@@ -45,7 +46,8 @@ function Dashboard({ accessKeyApi }) {
         </div>
         <div className="player">
           <SpotifyPlayer
-            uris={"spotify:track:5enxwA8aAbwZbf5qCHORXi"}
+            autoPlay={true}
+            uris={currentTrack ? [`${currentTrack}`] : []}
             token={accessKeyApi}
           />
         </div>
