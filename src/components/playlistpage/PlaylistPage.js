@@ -72,9 +72,14 @@ function PlaylistPage() {
               playlistTracks.items.map((item, index) => {
                 return (
                   <div
-                    onClick={() => {
-                      setCurrentTrack(item.track.uri);
-                      console.log(item.track.uri);
+                    onClick={(e) => {
+                      if (
+                        e.target.localName !== "h6" &&
+                        e.target.localName !== "img"
+                      ) {
+                        setCurrentTrack(item.track.uri);
+                        console.log(e);
+                      }
                     }}
                     className="playlistPage__trackItem"
                   >
@@ -95,7 +100,16 @@ function PlaylistPage() {
                       </Link>
                       <div className="trackNameAndArtist">
                         <h5>{item.track.name}</h5>
-                        <h6>{item.track.artists[0].name}</h6>
+                        {item.track.artists.map((artist, index) => (
+                          <Link to={`/artist/${artist.id}`} key={index}>
+                            <h6>{artist.name}</h6>
+                            <span style={{ fontWeight: 200 }}>
+                              {item.track.artists.length - 1 !== index
+                                ? ", "
+                                : ""}
+                            </span>
+                          </Link>
+                        ))}
                       </div>
                     </div>
 
