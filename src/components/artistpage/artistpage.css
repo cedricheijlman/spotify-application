@@ -1,11 +1,18 @@
 #artistPage {
-  border: 1px solid red;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .artist__info {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  background-color: rgba(166, 184, 218, 0.198);
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
 }
 
 .artist__info img {
@@ -17,7 +24,7 @@
 .artist__infoText {
   display: flex;
   flex-direction: column;
-
+  margin-top: 20px;
   justify-content: center;
 }
 
