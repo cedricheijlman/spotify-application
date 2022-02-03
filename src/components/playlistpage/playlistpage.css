@@ -90,6 +90,7 @@
   font-size: 15px;
   margin-bottom: 3px;
   cursor: pointer;
+  display: inline-block;
   font-weight: 500;
 }
 
@@ -100,6 +101,11 @@
   transition: all 0.2s;
   z-index: 99;
   display: inline-block;
+}
+
+.playlistPage__trackItem .trackNameAndArtist {
+  display: flex;
+  flex-direction: column;
 }
 
 .playlistPage__trackItem .time {

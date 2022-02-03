@@ -6,7 +6,7 @@ import useSpotifyWrapper from "../../useSpotifyWrapper";
 import "./playlistpage.css";
 
 function PlaylistPage() {
-  // get id playlist from url
+  // get playlist ID from url
   const playlistId = window.location.pathname.slice(10);
 
   // Initialise Wrapper Spotify API
@@ -69,58 +69,66 @@ function PlaylistPage() {
           </div>
           <div className="playlistPage__tracksList">
             {playlistTracks &&
-              playlistTracks.items.map((item, index) => {
-                return (
-                  <div
-                    onClick={(e) => {
-                      if (
-                        e.target.localName !== "h6" &&
-                        e.target.localName !== "img"
-                      ) {
-                        setCurrentTrack(item.track.uri);
-                        console.log(e);
-                      }
-                    }}
-                    className="playlistPage__trackItem"
-                  >
-                    <div className="playlistPage__trackItemLeft">
-                      <p className="trackNumber">{index + 1}</p>
-                      <Link
-                        title={item.track.album.name}
-                        to={`/album/${item.track.album.id}`}
-                      >
-                        <img
-                          height={60}
-                          src={
-                            item.track.album.images[0]
-                              ? item.track.album.images[0].url
-                              : ""
-                          }
-                        />
-                      </Link>
-                      <div className="trackNameAndArtist">
-                        <h5>{item.track.name}</h5>
-                        {item.track.artists.map((artist, index) => (
-                          <Link to={`/artist/${artist.id}`} key={index}>
-                            <h6>{artist.name}</h6>
-                            <span style={{ fontWeight: 200 }}>
-                              {item.track.artists.length - 1 !== index
-                                ? ", "
-                                : ""}
-                            </span>
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
+              playlistTracks.items
+                .filter((item) => item.track !== null)
+                .map((item, index) => {
+                  return (
+                    <>
+                      {item.track !== null && (
+                        <div
+                          onClick={(e) => {
+                            if (
+                              e.target.localName !== "h6" &&
+                              e.target.localName !== "img"
+                            ) {
+                              setCurrentTrack(item.track.uri);
+                              console.log(e);
+                            }
+                          }}
+                          className="playlistPage__trackItem"
+                        >
+                          <div className="playlistPage__trackItemLeft">
+                            <p className="trackNumber">{index + 1}</p>
+                            <Link
+                              title={item.track.album.name}
+                              to={`/album/${item.track.album.id}`}
+                            >
+                              <img
+                                height={60}
+                                src={
+                                  item.track.album.images[0]
+                                    ? item.track.album.images[0].url
+                                    : ""
+                                }
+                              />
+                            </Link>
+                            <div className="trackNameAndArtist">
+                              <h5>{item.track.name}</h5>
+                              <div>
+                                {item.track.artists.map((artist, index) => (
+                                  <Link to={`/artist/${artist.id}`} key={index}>
+                                    <h6>{artist.name}</h6>
+                                    <span style={{ fontWeight: 200 }}>
+                                      {item.track.artists.length - 1 !== index
+                                        ? ", "
+                                        : ""}
+                                    </span>
+                                  </Link>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
 
-                    <div>
-                      <p className="time">
-                        {getSeconds(item.track.duration_ms)}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
+                          <div>
+                            <p className="time">
+                              {getSeconds(item.track.duration_ms)}
+                            </p>
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  );
+                })}
           </div>
         </>
       )}

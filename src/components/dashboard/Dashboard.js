@@ -9,6 +9,7 @@ import Home from "../home/Home";
 import useSpotifyWrapper from "../../useSpotifyWrapper";
 import PlaylistPage from "../playlistpage/PlaylistPage";
 import { CurrentTrackContext } from "../../CurrentTrackContext";
+import AlbumPage from "../albumpage/AlbumPage";
 
 function Dashboard({ accessKeyApi }) {
   const { currentTrack, setCurrentTrack } = useContext(CurrentTrackContext);
@@ -46,6 +47,7 @@ function Dashboard({ accessKeyApi }) {
             <Route path="/" element={<Home />} />
             <Route path="/discover" element={<h1>Discover</h1>} />
             <Route path="/playlist/:id" element={<PlaylistPage />} />
+            <Route path="/album/:id" element={<AlbumPage />} />
           </Routes>
         </div>
         <div className="player">
