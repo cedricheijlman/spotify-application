@@ -73,7 +73,7 @@ function ArtistPage() {
             <p>Related Artists</p>
           </div>
           <div id="topTracks">
-            <h2>Top Tracks</h2>
+            <h2>Popular</h2>
             <div className="TopTracks__row">
               {artistTopTracks.tracks.map((track, index) => {
                 return (
@@ -83,6 +83,7 @@ function ArtistPage() {
                       <img src={track.album.images[0].url} />
                       <h4>{track.name}</h4>
                     </div>
+
                     <p>{getSeconds(track.duration_ms)}</p>
                   </div>
                 );

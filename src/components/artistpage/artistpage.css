@@ -8,11 +8,12 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  background-color: rgba(166, 184, 218, 0.198);
+  background-color: rgba(255, 255, 255, 0.287);
   padding: 15px;
   border-radius: 12px;
-  box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
-    rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
 }
 
 .artist__info img {
@@ -52,6 +53,7 @@
   border-radius: 10px;
   margin-bottom: 20px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  background-color: rgba(255, 255, 255, 0.666);
 }
 
 #topTracks {
@@ -63,33 +65,41 @@
 #topTracks h2 {
   font-size: 22px;
   margin-top: 20px;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
 }
 
 .topTracks__row {
   display: flex;
   flex-direction: row;
   width: 100%;
+  flex-wrap: wrap;
 }
 
 .topTracks__item {
+  box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+  background-color: rgba(255, 255, 255, 0.666);
+
+  border-radius: 7px;
   padding: 10px 1px;
   display: flex;
   justify-content: space-between;
-  border: 1px solid black;
+  flex-wrap: wrap;
   align-items: center;
-  margin: 15px 0;
-  max-width: 600px;
+  margin: 2px 0;
+  max-width: 80%;
+  margin-bottom: 10px;
 }
 
 .topTracks__item img {
-  width: 55px;
+  width: 45px;
   margin-right: 12px;
+  border-radius: 5px;
 }
 
 .topTracks__itemLeft {
   display: flex;
   align-items: center;
+  width: 50%;
 }
 
 .topTracks__itemLeft h4 {
@@ -98,11 +108,16 @@
 
 .topTracks__item p:nth-child(2) {
   margin-right: 15px;
+  text-align: center;
+  width: 50px;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .topTracks__itemLeft p {
   width: 35px;
   font-weight: 500;
+  padding: 0 12px;
   font-size: 15px;
   display: flex;
   justify-content: center;
