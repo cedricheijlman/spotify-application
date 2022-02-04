@@ -29,6 +29,7 @@ function ArtistPage() {
     if (!artistTopTracks) {
       spotifyApi.getArtistTopTracks(artistId, "US", {}, (err, result) => {
         setArtistTopTracks(result);
+        console.log("artist Info:", result);
       });
     }
 
@@ -39,9 +40,16 @@ function ArtistPage() {
     }
   }, [artistId]);
 
+  // Track length
+  const getSeconds = (millis) => {
+    let minutes = Math.floor(millis / 60000);
+    let seconds = ((millis % 60000) / 1000).toFixed(0);
+    return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+  };
+
   return (
     <div id="artistPage">
-      {artist !== null && (
+      {artist !== null && artistTopTracks !== null && (
         <>
           <div className="artist__info">
             <div>
@@ -50,7 +58,35 @@ function ArtistPage() {
             <div className="artist__infoText">
               <p>{artist.type && artist.type}</p>
               <h2>{artist.name && artist.name}</h2>
-              <p>{artist.followers && artist.followers.total} Followers</p>
+              <p>
+                {artist.followers &&
+                  artist.followers.total
+                    .toLocaleString()
+                    .replace(/\./g, ",")}{" "}
+                Followers
+              </p>
+            </div>
+          </div>
+          <div className="artist__optionList">
+            <p>Top Tracks</p>
+            <p>Albums</p>
+            <p>Related Artists</p>
+          </div>
+          <div id="topTracks">
+            <h2>Top Tracks</h2>
+            <div className="TopTracks__row">
+              {artistTopTracks.tracks.map((track, index) => {
+                return (
+                  <div className="topTracks__item">
+                    <div className="topTracks__itemLeft">
+                      <p>{index + 1}</p>
+                      <img src={track.album.images[0].url} />
+                      <h4>{track.name}</h4>
+                    </div>
+                    <p>{getSeconds(track.duration_ms)}</p>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </>
