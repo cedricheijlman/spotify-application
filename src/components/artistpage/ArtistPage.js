@@ -155,8 +155,11 @@ function ArtistPage() {
                   .filter(
                     (track, index, self) =>
                       track.name !==
-                      self[index !== self.length - 1 ? index + 1 : index - 1]
-                        .name
+                        self[index !== self.length - 1 ? index + 1 : index - 1]
+                          .name ||
+                      (self.length == 2 &&
+                        index !== 1 &&
+                        track.name == self[1].name)
                   )
                   .map((album) => {
                     return (
