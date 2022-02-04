@@ -7,7 +7,7 @@ import "./artistpage.css";
 
 function ArtistPage() {
   const [currentOption, setCurrentOption] = useState("topTracks");
-
+  const [artistChange, setArtistChange] = useState(0);
   // get Artist ID from url
   const artistId = window.location.pathname.slice(8);
 
@@ -23,41 +23,38 @@ function ArtistPage() {
   const [artistTopTracks, setArtistTopTracks] = useState(null);
   const [artistAlbums, setArtistAlbums] = useState(null);
   const [artistSinglesAndEps, setArtistSingleAndEps] = useState(null);
+  const [relatedArtists, setRelatedArtists] = useState(null);
   useEffect(() => {
-    if (!artist) {
-      spotifyApi.getArtist(artistId, {}, (err, result) => {
-        setArtist(result);
-      });
-    }
+    spotifyApi.getArtist(artistId, {}, (err, result) => {
+      setArtist(result);
+    });
 
-    if (!artistTopTracks) {
-      spotifyApi.getArtistTopTracks(artistId, "US", {}, (err, result) => {
-        setArtistTopTracks(result);
-        console.log(result);
-      });
-    }
+    spotifyApi.getArtistTopTracks(artistId, "US", {}, (err, result) => {
+      setArtistTopTracks(result);
+      console.log(result);
+    });
 
-    if (!artistAlbums) {
-      spotifyApi.getArtistAlbums(
-        artistId,
-        { include_groups: "album", market: "US" },
-        (err, result) => {
-          setArtistAlbums(result);
-        }
-      );
-    }
+    spotifyApi.getArtistAlbums(
+      artistId,
+      { include_groups: "album", market: "US" },
+      (err, result) => {
+        setArtistAlbums(result);
+      }
+    );
 
-    if (!artistSinglesAndEps) {
-      spotifyApi.getArtistAlbums(
-        artistId,
-        { include_groups: "single", market: "US", limit: 50 },
-        (err, result) => {
-          setArtistSingleAndEps(result);
-          console.log("artist Info:", result);
-        }
-      );
-    }
-  }, [artistId]);
+    spotifyApi.getArtistAlbums(
+      artistId,
+      { include_groups: "single", market: "US", limit: 50 },
+      (err, result) => {
+        setArtistSingleAndEps(result);
+      }
+    );
+
+    spotifyApi.getArtistRelatedArtists(artistId, {}, (err, result) => {
+      setRelatedArtists(result);
+      console.log("artist Info:", result);
+    });
+  }, [artistId, artistChange]);
 
   // Track length
   const getSeconds = (millis) => {
@@ -91,25 +88,25 @@ function ArtistPage() {
           </div>
           <div className="artist__optionList">
             <p
-              class={currentOption == "topTracks" ? "selected" : ""}
+              className={currentOption == "topTracks" ? "selected" : ""}
               onClick={() => setCurrentOption("topTracks")}
             >
               Top Tracks
             </p>
             <p
-              class={currentOption == "albums" ? "selected" : ""}
+              className={currentOption == "albums" ? "selected" : ""}
               onClick={() => setCurrentOption("albums")}
             >
               Albums
             </p>
             <p
-              class={currentOption == "singlesAndEps" ? "selected" : ""}
+              className={currentOption == "singlesAndEps" ? "selected" : ""}
               onClick={() => setCurrentOption("singlesAndEps")}
             >
               Singles And EP's
             </p>
             <p
-              class={currentOption == "relatedArtists" ? "selected" : ""}
+              className={currentOption == "relatedArtists" ? "selected" : ""}
               onClick={() => setCurrentOption("relatedArtists")}
             >
               Related Artists
@@ -123,6 +120,7 @@ function ArtistPage() {
                 {artistTopTracks.tracks.map((track, index) => {
                   return (
                     <div
+                      key={track.id}
                       onClick={(e) => {
                         if (e.target.localName !== "img") {
                           setCurrentTrack(track.uri);
@@ -162,7 +160,7 @@ function ArtistPage() {
                   )
                   .map((album) => {
                     return (
-                      <Link to={`/album/${album.id}`}>
+                      <Link key={album.id} to={`/album/${album.id}`}>
                         <div className="artistAlbum__item">
                           <img src={album.images[0].url} />
                           <h5>{album.name}</h5>
@@ -177,7 +175,7 @@ function ArtistPage() {
 
           {currentOption == "singlesAndEps" && (
             <div id="containerArtist">
-              <h2>Albums</h2>
+              <h2>Singles And EP's</h2>
               <div className="artist__optionRow">
                 {artistSinglesAndEps.items
                   .filter(
@@ -188,7 +186,7 @@ function ArtistPage() {
                   )
                   .map((album) => {
                     return (
-                      <Link to={`/album/${album.id}`}>
+                      <Link key={album.id} to={`/album/${album.id}`}>
                         <div className="artistAlbum__item">
                           <img src={album.images[0].url} />
                           <h5>{album.name}</h5>
@@ -197,6 +195,34 @@ function ArtistPage() {
                       </Link>
                     );
                   })}
+              </div>
+            </div>
+          )}
+
+          {currentOption == "relatedArtists" && (
+            <div id="containerArtist">
+              <h2>Others also like</h2>
+              <div className="artist__optionRow">
+                {relatedArtists.artists.map((album) => {
+                  return (
+                    <Link
+                      onClick={() => {
+                        setCurrentOption("topTracks");
+                        setArtistChange(artistChange + 1);
+                      }}
+                      key={album.id}
+                      to={`/artist/${album.id}`}
+                    >
+                      <div className="artistAlbum__item">
+                        <img
+                          style={{ borderRadius: "50%" }}
+                          src={album.images[0].url}
+                        />
+                        <h5>{album.name}</h5>
+                      </div>
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           )}
