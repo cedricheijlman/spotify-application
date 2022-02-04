@@ -54,6 +54,9 @@
   margin-right: 10px;
 }
 
+.albumOwnerAndTracks a:hover {
+  text-decoration: underline;
+}
 /* Track List */
 
 .albumPage__trackItem {

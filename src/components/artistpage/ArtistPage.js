@@ -146,11 +146,13 @@ function ArtistPage() {
                   )
                   .map((album) => {
                     return (
-                      <div className="artistAlbum__item">
-                        <img src={album.images[0].url} />
-                        <h5>{album.name}</h5>
-                        <p>{album.release_date.slice(0, 4)}</p>
-                      </div>
+                      <Link to={`/album/${album.id}`}>
+                        <div className="artistAlbum__item">
+                          <img src={album.images[0].url} />
+                          <h5>{album.name}</h5>
+                          <p>{album.release_date.slice(0, 4)}</p>
+                        </div>
+                      </Link>
                     );
                   })}
               </div>

@@ -117,6 +117,7 @@
 
 .topTracks__itemLeft h4 {
   font-weight: 500;
+  cursor: pointer;
 }
 
 .topTracks__item p:nth-child(2) {
