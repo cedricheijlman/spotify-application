@@ -43,7 +43,6 @@ function ArtistPage() {
         { include_groups: "album", market: "US" },
         (err, result) => {
           setArtistAlbums(result);
-          console.log("artist Info:", result);
         }
       );
     }
@@ -51,9 +50,10 @@ function ArtistPage() {
     if (!artistSinglesAndEps) {
       spotifyApi.getArtistAlbums(
         artistId,
-        { include_groups: "single" },
+        { include_groups: "single", market: "US", limit: 50 },
         (err, result) => {
           setArtistSingleAndEps(result);
+          console.log("artist Info:", result);
         }
       );
     }
@@ -154,6 +154,32 @@ function ArtistPage() {
               <h2>Albums</h2>
               <div className="artist__optionRow">
                 {artistAlbums.items
+                  .filter(
+                    (track, index, self) =>
+                      track.name !==
+                      self[index !== self.length - 1 ? index + 1 : index - 1]
+                        .name
+                  )
+                  .map((album) => {
+                    return (
+                      <Link to={`/album/${album.id}`}>
+                        <div className="artistAlbum__item">
+                          <img src={album.images[0].url} />
+                          <h5>{album.name}</h5>
+                          <p>{album.release_date.slice(0, 4)}</p>
+                        </div>
+                      </Link>
+                    );
+                  })}
+              </div>
+            </div>
+          )}
+
+          {currentOption == "singlesAndEps" && (
+            <div id="containerArtist">
+              <h2>Albums</h2>
+              <div className="artist__optionRow">
+                {artistSinglesAndEps.items
                   .filter(
                     (track, index, self) =>
                       track.name !==
