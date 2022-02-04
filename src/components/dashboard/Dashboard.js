@@ -11,6 +11,8 @@ import PlaylistPage from "../playlistpage/PlaylistPage";
 import { CurrentTrackContext } from "../../CurrentTrackContext";
 import AlbumPage from "../albumpage/AlbumPage";
 import ArtistPage from "../artistpage/ArtistPage";
+import { AccountCircleOutlined } from "@mui/icons-material";
+import UserPage from "../userpage/UserPage";
 
 function Dashboard({ accessKeyApi }) {
   const { currentTrack, setCurrentTrack } = useContext(CurrentTrackContext);
@@ -42,6 +44,12 @@ function Dashboard({ accessKeyApi }) {
               <p>Discover</p>
             </div>
           </Link>
+          <Link to={`/profile`}>
+            <div className="dashboard__category">
+              <AccountCircleOutlined className="category__logo" />
+              <p>Profile</p>
+            </div>
+          </Link>
         </div>
         <div className="dashboard__right">
           <Routes>
@@ -50,6 +58,7 @@ function Dashboard({ accessKeyApi }) {
             <Route path="/playlist/:id" element={<PlaylistPage />} />
             <Route path="/album/:id" element={<AlbumPage />} />
             <Route path="/artist/:id" element={<ArtistPage />} />
+            <Route path="/profile" element={<UserPage />} />
           </Routes>
         </div>
         <div className="player">

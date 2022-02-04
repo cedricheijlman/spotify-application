@@ -4,6 +4,7 @@ import SpotifyWebApi from "spotify-web-api-js";
 import useSpotifyWrapper from "../../useSpotifyWrapper";
 import NewReleases from "./NewReleases";
 import { CurrentTrackContext } from "../../CurrentTrackContext";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function Home() {
   const accessKeyApi = sessionStorage.getItem("accessToken");
@@ -22,6 +23,10 @@ function Home() {
         console.log(data);
       });
     }
+
+    spotifyApi.getCategoryPlaylists("pop", { limit: 50 }, (err, result) => {
+      console.log(result);
+    });
   }, [spotifyApi]);
 
   return (
