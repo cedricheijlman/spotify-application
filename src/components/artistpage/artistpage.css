@@ -2,6 +2,8 @@
   padding: 10px;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .artist__info {
@@ -11,7 +13,7 @@
   background-color: rgba(255, 255, 255, 0.287);
   padding: 15px;
   border-radius: 12px;
-
+  width: 90%;
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
     rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
 }
@@ -47,31 +49,33 @@
 }
 
 .artist__optionList p {
-  margin: 0 5px;
+  margin: 0 9px;
   border: 1px solid rgba(134, 134, 134, 0.267);
   padding: 9px;
   border-radius: 10px;
   margin-bottom: 20px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-  background-color: rgba(255, 255, 255, 0.666);
+  background-color: rgba(255, 255, 255, 0);
 }
 
-#topTracks {
+#containerArtist {
   padding: 15px 5px;
   display: flex;
   flex-direction: column;
+  width: 90%;
 }
 
-#topTracks h2 {
+#containerArtist h2 {
   font-size: 22px;
-  margin-top: 20px;
+  margin-top: 10px;
   margin-bottom: 15px;
 }
 
-.topTracks__row {
+.artist__optionRow {
   display: flex;
   flex-direction: row;
   width: 100%;
+
   flex-wrap: wrap;
 }
 
@@ -86,7 +90,7 @@
   flex-wrap: wrap;
   align-items: center;
   margin: 2px 0;
-  max-width: 80%;
+  width: 100%;
   margin-bottom: 10px;
 }
 
@@ -121,4 +125,15 @@
   font-size: 15px;
   display: flex;
   justify-content: center;
+}
+
+.artistAlbum__item {
+  border: 1px solid red;
+  margin-right: 5px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.artistAlbum__item img {
+  width: 200px;
 }
