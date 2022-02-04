@@ -66,7 +66,8 @@
 }
 
 #containerArtist h2 {
-  font-size: 22px;
+  font-size: 35px;
+  text-transform: capitalize;
   margin-top: 10px;
   margin-bottom: 15px;
 }
@@ -128,12 +129,29 @@
 }
 
 .artistAlbum__item {
-  border: 1px solid red;
-  margin-right: 5px;
-  margin-bottom: 10px;
-  padding: 10px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  max-width: 225px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.774);
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+  transition: all 0.5s;
+}
+
+.artistAlbum__item:hover {
+  background-color: rgba(255, 255, 255, 0.267);
+  transform: scale(1.02);
+  cursor: pointer;
+}
+
+.artistAlbum__item h5 {
+  margin-top: 10px;
 }
 
 .artistAlbum__item img {
-  width: 200px;
+  width: 185px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+  transition: all 0.5s;
 }
