@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import SpotifyWebApi from "spotify-web-api-js";
+import { CurrentTrackContext } from "../../CurrentTrackContext";
 import useSpotifyWrapper from "../../useSpotifyWrapper";
 import "./artistpage.css";
 
@@ -31,6 +33,7 @@ function ArtistPage() {
     if (!artistTopTracks) {
       spotifyApi.getArtistTopTracks(artistId, "US", {}, (err, result) => {
         setArtistTopTracks(result);
+        console.log(result);
       });
     }
 
@@ -62,6 +65,9 @@ function ArtistPage() {
     let seconds = ((millis % 60000) / 1000).toFixed(0);
     return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
   };
+
+  // setState currentTrack
+  const { currentTrack, setCurrentTrack } = useContext(CurrentTrackContext);
 
   return (
     <div id="artistPage">
@@ -100,10 +106,22 @@ function ArtistPage() {
               <div className="artist__optionRow">
                 {artistTopTracks.tracks.map((track, index) => {
                   return (
-                    <div className="topTracks__item">
+                    <div
+                      onClick={(e) => {
+                        if (e.target.localName !== "img") {
+                          setCurrentTrack(track.uri);
+                        }
+                      }}
+                      className="topTracks__item"
+                    >
                       <div className="topTracks__itemLeft">
                         <p>{index + 1}</p>
-                        <img src={track.album.images[0].url} />
+                        <Link to={`/album/${track.album.id}`}>
+                          <img
+                            title={track.album.name}
+                            src={track.album.images[0].url}
+                          />
+                        </Link>
                         <h4>{track.name}</h4>
                       </div>
 

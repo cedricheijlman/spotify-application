@@ -99,6 +99,14 @@
   width: 45px;
   margin-right: 12px;
   border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px,
+    rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
+    rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+  transition: all 0.4s;
+}
+
+.topTracks__item img:hover {
+  transform: scale(1.02);
 }
 
 .topTracks__itemLeft {
@@ -137,6 +145,7 @@
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
   transition: all 0.5s;
+  justify-content: space-between;
 }
 
 .artistAlbum__item:hover {
@@ -147,6 +156,8 @@
 
 .artistAlbum__item h5 {
   margin-top: 10px;
+  height: 55px;
+  font-size: 15px;
 }
 
 .artistAlbum__item img {
