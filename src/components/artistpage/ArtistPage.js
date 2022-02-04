@@ -90,12 +90,28 @@ function ArtistPage() {
             </div>
           </div>
           <div className="artist__optionList">
-            <p onClick={() => setCurrentOption("topTracks")}>Top Tracks</p>
-            <p onClick={() => setCurrentOption("albums")}>Albums</p>
-            <p onClick={() => setCurrentOption("singlesAndEps")}>
+            <p
+              class={currentOption == "topTracks" ? "selected" : ""}
+              onClick={() => setCurrentOption("topTracks")}
+            >
+              Top Tracks
+            </p>
+            <p
+              class={currentOption == "albums" ? "selected" : ""}
+              onClick={() => setCurrentOption("albums")}
+            >
+              Albums
+            </p>
+            <p
+              class={currentOption == "singlesAndEps" ? "selected" : ""}
+              onClick={() => setCurrentOption("singlesAndEps")}
+            >
               Singles And EP's
             </p>
-            <p onClick={() => setCurrentOption("relatedArtists")}>
+            <p
+              class={currentOption == "relatedArtists" ? "selected" : ""}
+              onClick={() => setCurrentOption("relatedArtists")}
+            >
               Related Artists
             </p>
           </div>

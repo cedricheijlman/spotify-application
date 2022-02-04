@@ -46,6 +46,7 @@
   display: flex;
   margin-top: 35px;
   border-bottom: 1px solid rgba(172, 172, 172, 0.466);
+  cursor: pointer;
 }
 
 .artist__optionList p {
@@ -56,6 +57,14 @@
   margin-bottom: 20px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   background-color: rgba(255, 255, 255, 0);
+  transition: all 0.3s;
+}
+
+.selected {
+  background-color: rgba(255, 255, 255, 0.842) !important;
+  border: none;
+  transition: all 0.3s;
+  transform: scale(1.1);
 }
 
 #containerArtist {
