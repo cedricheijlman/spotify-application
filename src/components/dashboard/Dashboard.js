@@ -12,7 +12,7 @@ import { CurrentTrackContext } from "../../CurrentTrackContext";
 import AlbumPage from "../albumpage/AlbumPage";
 import ArtistPage from "../artistpage/ArtistPage";
 import { AccountCircleOutlined } from "@mui/icons-material";
-import UserPage from "../userpage/UserPage";
+import ProfilePage from "../profilepage/ProfilePage";
 
 function Dashboard({ accessKeyApi }) {
   const { currentTrack, setCurrentTrack } = useContext(CurrentTrackContext);
@@ -58,7 +58,7 @@ function Dashboard({ accessKeyApi }) {
             <Route path="/playlist/:id" element={<PlaylistPage />} />
             <Route path="/album/:id" element={<AlbumPage />} />
             <Route path="/artist/:id" element={<ArtistPage />} />
-            <Route path="/profile" element={<UserPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
           </Routes>
         </div>
         <div className="player">
