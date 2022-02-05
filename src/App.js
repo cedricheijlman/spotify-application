@@ -18,7 +18,7 @@ function App() {
       ? "https://spotify-application.netlify.app/"
       : "http://localhost:3000";
   const scope =
-    "user-read-private user-read-playback-state user-read-email user-library-read user-follow-read user-top-read user-read-recently-played playlist-read-collaborative";
+    "user-modify-playback-state streaming user-read-private user-read-playback-state user-read-email user-library-read user-follow-read user-top-read user-read-recently-played playlist-read-collaborative";
 
   let url = "https://accounts.spotify.com/authorize";
   url += "?response_type=token";
