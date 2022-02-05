@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import SpotifyWebApi from "spotify-web-api-js";
 import { CurrentTrackContext } from "../../CurrentTrackContext";
 import useSpotifyWrapper from "../../useSpotifyWrapper";
+import AlbumCard from "../main/AlbumCard";
+import ArtistCard from "../main/ArtistCard";
 import "./artistpage.css";
 
 function ArtistPage() {
@@ -165,11 +167,11 @@ function ArtistPage() {
                   .map((album) => {
                     return (
                       <Link key={album.id} to={`/album/${album.id}`}>
-                        <div className="artistAlbum__item">
-                          <img src={album.images[0].url} />
-                          <h5>{album.name}</h5>
-                          <p>{album.release_date.slice(0, 4)}</p>
-                        </div>
+                        <AlbumCard
+                          key={album.id}
+                          img={album.images[0].url}
+                          name={album.name}
+                        />
                       </Link>
                     );
                   })}
@@ -191,11 +193,12 @@ function ArtistPage() {
                   .map((album) => {
                     return (
                       <Link key={album.id} to={`/album/${album.id}`}>
-                        <div className="artistAlbum__item">
-                          <img src={album.images[0].url} />
-                          <h5>{album.name}</h5>
-                          <p>{album.release_date.slice(0, 4)}</p>
-                        </div>
+                        <AlbumCard
+                          key={album.id}
+                          img={album.images[0].url}
+                          name={album.name}
+                          releaseDate={album.release_date.slice(0, 4)}
+                        />
                       </Link>
                     );
                   })}
@@ -207,23 +210,20 @@ function ArtistPage() {
             <div id="containerArtist">
               <h2>Others also like</h2>
               <div className="artist__optionRow">
-                {relatedArtists.artists.map((album) => {
+                {relatedArtists.artists.map((artist) => {
                   return (
                     <Link
                       onClick={() => {
                         setCurrentOption("topTracks");
                         setArtistChange(artistChange + 1);
                       }}
-                      key={album.id}
-                      to={`/artist/${album.id}`}
+                      key={artist.id}
+                      to={`/artist/${artist.id}`}
                     >
-                      <div className="artistAlbum__item">
-                        <img
-                          style={{ borderRadius: "50%" }}
-                          src={album.images[0].url}
-                        />
-                        <h5>{album.name}</h5>
-                      </div>
+                      <ArtistCard
+                        img={artist.images[0].url}
+                        artistName={artist.name}
+                      />
                     </Link>
                   );
                 })}

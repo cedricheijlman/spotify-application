@@ -145,38 +145,3 @@
   display: flex;
   justify-content: center;
 }
-
-.artistAlbum__item {
-  margin-right: 20px;
-  margin-bottom: 20px;
-  max-width: 175px;
-  padding: 15px;
-  background-color: rgba(255, 255, 255, 0.774);
-  border-radius: 5px;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
-  transition: all 0.5s;
-  justify-content: space-between;
-}
-
-.artistAlbum__item:hover {
-  background-color: rgba(255, 255, 255, 0.267);
-  transform: scale(1.02);
-  cursor: pointer;
-}
-
-.artistAlbum__item h5 {
-  margin-top: 10px;
-  height: 55px;
-  font-size: 15px;
-  overflow-y: hidden;
-  margin-bottom: 5px;
-}
-
-.artistAlbum__item img {
-  width: 145px;
-  border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
-  transition: all 0.5s;
-  object-fit: cover;
-  height: 145px;
-}

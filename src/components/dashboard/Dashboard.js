@@ -12,7 +12,7 @@ import { CurrentTrackContext } from "../../CurrentTrackContext";
 import AlbumPage from "../albumpage/AlbumPage";
 import ArtistPage from "../artistpage/ArtistPage";
 import { AccountCircleOutlined } from "@mui/icons-material";
-import ProfilePage from "../profilepage/ProfilePage";
+import ProfilePage from "../userpage/ProfilePage";
 
 function Dashboard({ accessKeyApi }) {
   const { currentTrack, setCurrentTrack } = useContext(CurrentTrackContext);
