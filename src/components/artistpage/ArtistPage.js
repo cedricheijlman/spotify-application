@@ -153,13 +153,14 @@ function ArtistPage() {
               <div className="artist__optionRow">
                 {artistAlbums.items
                   .filter(
-                    (track, index, self) =>
-                      track.name !==
+                    (album, index, self) =>
+                      self.length == 1 ||
+                      album.name !==
                         self[index !== self.length - 1 ? index + 1 : index - 1]
                           .name ||
                       (self.length == 2 &&
                         index !== 1 &&
-                        track.name == self[1].name)
+                        album.name == self[1].name)
                   )
                   .map((album) => {
                     return (
