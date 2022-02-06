@@ -6,7 +6,7 @@ function Track({ setCurrentTrack, index, item, getSeconds }) {
     <div
       onClick={(e) => {
         if (e.target.localName !== "h6" && e.target.localName !== "img") {
-          setCurrentTrack(item.track.uri);
+          setCurrentTrack(item.uri);
           console.log(e);
         }
       }}

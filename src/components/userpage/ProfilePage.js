@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import SpotifyWebApi from "spotify-web-api-js";
 import { CurrentTrackContext } from "../../CurrentTrackContext";
 import useSpotifyWrapper from "../../useSpotifyWrapper";
+import AlbumCard from "../main/AlbumCard";
 import ArtistCard from "../main/ArtistCard";
 import Track from "../main/Track";
 import "./profilepage.css";
@@ -25,6 +26,11 @@ function ProfilePage() {
   });
   const [topTracks, setTopTracks] = useState({
     tracks: [],
+    limit: 20,
+  });
+
+  const [playlists, setPlaylists] = useState({
+    playlists: [],
     limit: 20,
   });
 
@@ -63,6 +69,14 @@ function ProfilePage() {
         setRecentlyPlayed({ ...recentlyPlayed, tracks: result.items });
       }
     );
+  }, []);
+
+  // get user playlists
+  useEffect(() => {
+    spotifyApi.getUserPlaylists({}, (err, result) => {
+      console.log(result);
+      setPlaylists({ ...playlists, playlists: result.items });
+    });
   }, []);
 
   // Track length
@@ -183,7 +197,19 @@ function ProfilePage() {
           {currentOption == "playlists" && (
             <div className="profilePage__stats">
               <h2>Playlists</h2>
-              <div className="profilePage__row"></div>
+              <div className="profilePage__row">
+                {playlists.playlists.length > 0 &&
+                  playlists.playlists.map((playlist) => {
+                    return (
+                      <Link to={`/playlist/${playlist.id}`}>
+                        <AlbumCard
+                          name={playlist.name}
+                          img={playlist.images[0].url}
+                        />
+                      </Link>
+                    );
+                  })}
+              </div>
             </div>
           )}
         </div>
