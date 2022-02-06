@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import SpotifyWebApi from "spotify-web-api-js";
 import { CurrentTrackContext } from "../../CurrentTrackContext";
 import useSpotifyWrapper from "../../useSpotifyWrapper";
+import Track from "../main/Track";
 import "./playlistpage.css";
 
 function PlaylistPage() {
@@ -76,66 +77,12 @@ function PlaylistPage() {
                   return (
                     <React.Fragment key={index}>
                       {item.track !== null && (
-                        <div
-                          onClick={(e) => {
-                            if (
-                              e.target.localName !== "h6" &&
-                              e.target.localName !== "img"
-                            ) {
-                              setCurrentTrack(item.track.uri);
-                              console.log(e);
-                            }
-                          }}
-                          className="playlistPage__trackItem"
-                        >
-                          <div className="playlistPage__trackItemLeft">
-                            <div
-                              style={{
-                                width: 34,
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                marginRight: 5,
-                              }}
-                            >
-                              <p className="trackNumber">{index + 1}</p>
-                            </div>
-                            <Link
-                              title={item.track.album.name}
-                              to={`/album/${item.track.album.id}`}
-                            >
-                              <img
-                                height={60}
-                                src={
-                                  item.track.album.images[0]
-                                    ? item.track.album.images[0].url
-                                    : ""
-                                }
-                              />
-                            </Link>
-                            <div className="trackNameAndArtist">
-                              <h5>{item.track.name}</h5>
-                              <div>
-                                {item.track.artists.map((artist, index) => (
-                                  <Link to={`/artist/${artist.id}`} key={index}>
-                                    <h6>{artist.name}</h6>
-                                    <span style={{ fontWeight: 200 }}>
-                                      {item.track.artists.length - 1 !== index
-                                        ? ", "
-                                        : ""}
-                                    </span>
-                                  </Link>
-                                ))}
-                              </div>
-                            </div>
-                          </div>
-
-                          <div>
-                            <p className="time">
-                              {getSeconds(item.track.duration_ms)}
-                            </p>
-                          </div>
-                        </div>
+                        <Track
+                          index={index}
+                          item={item.track}
+                          setCurrentTrack={setCurrentTrack}
+                          getSeconds={getSeconds}
+                        />
                       )}
                     </React.Fragment>
                   );

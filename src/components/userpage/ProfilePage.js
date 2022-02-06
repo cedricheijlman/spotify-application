@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SpotifyWebApi from "spotify-web-api-js";
+import { CurrentTrackContext } from "../../CurrentTrackContext";
 import useSpotifyWrapper from "../../useSpotifyWrapper";
 import ArtistCard from "../main/ArtistCard";
+import Track from "../main/Track";
 import "./profilepage.css";
 function ProfilePage() {
   // Initialise Wrapper Spotify API
@@ -17,23 +19,58 @@ function ProfilePage() {
     artists: [],
     limit: 10,
   });
+  const [recentlyPlayed, setRecentlyPlayed] = useState({
+    tracks: [],
+    limit: 20,
+  });
+  const [topTracks, setTopTracks] = useState({
+    tracks: [],
+    limit: 20,
+  });
+
   // getProfile
   useEffect(() => {
     spotifyApi.getMe((err, result) => {
-      console.log(result);
       setProfile(result);
     });
   }, []);
 
+  // setState currentTrack
+  const { currentTrack, setCurrentTrack } = useContext(CurrentTrackContext);
+
+  // get top artists
   useEffect(() => {
     spotifyApi.getMyTopArtists(
       { limit: profileTopArtists.limit },
       (err, result) => {
-        console.log(result);
         setProfileTopArtists({ ...profileTopArtists, artists: result.items });
       }
     );
   }, []);
+
+  // get Top Listened Tracks
+  useEffect(() => {
+    spotifyApi.getMyTopTracks({ limit: topTracks.limit }, (err, result) => {
+      setTopTracks({ ...topTracks, tracks: result.items });
+    });
+  }, []);
+
+  // get Recently played tracks
+  useEffect(() => {
+    spotifyApi.getMyRecentlyPlayedTracks(
+      { limit: recentlyPlayed.limit },
+      (err, result) => {
+        setRecentlyPlayed({ ...recentlyPlayed, tracks: result.items });
+      }
+    );
+  }, []);
+
+  // Track length
+  const getSeconds = (millis) => {
+    let minutes = Math.floor(millis / 60000);
+    let seconds = ((millis % 60000) / 1000).toFixed(0);
+    return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+  };
 
   return (
     <>
@@ -85,14 +122,16 @@ function ProfilePage() {
               <div className="profilePage__row">
                 {profileTopArtists &&
                   profileTopArtists.artists.length > 0 &&
-                  profileTopArtists.artists.map((artist) => {
+                  profileTopArtists.artists.map((artist, index) => {
                     return (
-                      <Link to={`/artist/${artist.id}`}>
-                        <ArtistCard
-                          img={artist.images[0].url}
-                          artistName={artist.name}
-                        />
-                      </Link>
+                      <React.Fragment key={index}>
+                        <Link to={`/artist/${artist.id}`}>
+                          <ArtistCard
+                            img={artist.images[0].url}
+                            artistName={artist.name}
+                          />
+                        </Link>
+                      </React.Fragment>
                     );
                   })}
               </div>
@@ -102,14 +141,42 @@ function ProfilePage() {
           {currentOption == "topTracks" && (
             <div className="profilePage__stats">
               <h2>Top Tracks</h2>
-              <div className="profilePage__row"></div>
+              <div className="profilePage__row">
+                {topTracks.tracks.length > 0 &&
+                  topTracks.tracks.map((track, index) => {
+                    return (
+                      <React.Fragment key={index}>
+                        <Track
+                          item={track}
+                          index={index}
+                          setCurrentTrack={setCurrentTrack}
+                          getSeconds={getSeconds}
+                        />
+                      </React.Fragment>
+                    );
+                  })}
+              </div>
             </div>
           )}
 
           {currentOption == "recentlyPlayed" && (
             <div className="profilePage__stats">
               <h2>Recently Played</h2>
-              <div className="profilePage__row"></div>
+              <div className="profilePage__row">
+                {recentlyPlayed.tracks.length > 0 &&
+                  recentlyPlayed.tracks.map((track, index) => {
+                    return (
+                      <React.Fragment key={index}>
+                        <Track
+                          item={track.track}
+                          index={index}
+                          setCurrentTrack={setCurrentTrack}
+                          getSeconds={getSeconds}
+                        />
+                      </React.Fragment>
+                    );
+                  })}
+              </div>
             </div>
           )}
 
