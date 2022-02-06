@@ -2,6 +2,15 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Features
+* See user Top artists, Top tracks
+* See user Playlists
+* Artist Page
+* Album Page
+* Playlist Page
+* Discover New Music
+
+
 ## Technologies
 * HTML/CSS
 * Javascript
@@ -9,6 +18,16 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * Spotify API
 * Spotify Api Wrapper Library
 * Material UI Icons
+
+## Images
+
+### Login Page
+
+<img src="https://i.ibb.co/TTccD0H/profilepage.jpg" width="950px" >
+
+### Artist Page
+<img src="https://i.ibb.co/C8Qcv1Z/artistpage.jpg" width="950px" >
+
 
 ## Usage
 
