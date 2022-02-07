@@ -9,6 +9,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 function Home() {
   const accessKeyApi = sessionStorage.getItem("accessToken");
   const [featuredPlaylists, setFeaturedPlaylists] = useState(null);
+  const [currentOption, setCurrentOption] = useState("featuredPlaylists");
   const { currentTrack, setCurrentTrack } = useContext(CurrentTrackContext);
 
   // Initialize Wrapper and set AccessCode
@@ -32,13 +33,37 @@ function Home() {
   return (
     <div id="home">
       <div className="home__choose">
-        <p>Editor's Picks</p>
-        <p>Editor's Picks</p>
-        <p>Editor's Picks</p>
-        <p>Editor's Picks</p>
+        <p
+          onClick={() => {
+            setCurrentOption("featuredPlaylists");
+          }}
+        >
+          Featured Playlists
+        </p>
+        <p
+          onClick={() => {
+            setCurrentOption("featured");
+          }}
+        >
+          Editor's Picks
+        </p>
+        <p
+          onClick={() => {
+            setCurrentOption("featured");
+          }}
+        >
+          Editor's Picks
+        </p>
+        <p
+          onClick={() => {
+            setCurrentOption("featured");
+          }}
+        >
+          Editor's Picks
+        </p>
       </div>
       <div className="featuredPlaylistsRow">
-        {featuredPlaylists !== null && (
+        {featuredPlaylists !== null && currentOption == "featuredPlaylists" && (
           <NewReleases featuredPlaylists={featuredPlaylists} />
         )}
       </div>
