@@ -3,12 +3,13 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Features
-* See user Top artists, Top tracks
+* See user Top artists, Top tracks, recently played tracks
 * See user Playlists
 * Artist Page
 * Album Page
 * Playlist Page
-* Discover New Music
+* Home Page (New releases, featured playlists)
+* Discover Page (Categories: Pop, Rock, Hip-Hop, Soul, Indie-Alt, Jazz, RnB, Country, Alternative)
 
 
 ## Technologies
