@@ -12,6 +12,10 @@ function Discover() {
   const [popCategory, setPopCategory] = useState(null);
   const [rockCategory, setRockCategory] = useState(null);
   const [chillCategory, setChillCategory] = useState(null);
+  const [soulCategory, setSoulCategory] = useState(null);
+  const [indieAltCategory, setIndieAltCategory] = useState(null);
+  const [hiphopCategory, setHiphopCategory] = useState(null);
+
   // Initialize Wrapper and set AccessCode
   let spotifyApi = new SpotifyWebApi();
   const setAccessCode = useSpotifyWrapper(accessKeyApi, spotifyApi);
@@ -47,6 +51,36 @@ function Discover() {
         }
       );
     }
+
+    if (!hiphopCategory) {
+      spotifyApi.getCategoryPlaylists(
+        "hiphop",
+        { limit: 10, country: "us" },
+        (err, result) => {
+          setHiphopCategory(result.playlists.items);
+        }
+      );
+    }
+
+    if (!soulCategory) {
+      spotifyApi.getCategoryPlaylists(
+        "soul",
+        { limit: 10, country: "us" },
+        (err, result) => {
+          setSoulCategory(result.playlists.items);
+        }
+      );
+    }
+
+    if (!indieAltCategory) {
+      spotifyApi.getCategoryPlaylists(
+        "indie_alt",
+        { limit: 10, country: "us" },
+        (err, result) => {
+          setIndieAltCategory(result.playlists.items);
+        }
+      );
+    }
   }, [spotifyApi]);
 
   return (
@@ -76,6 +110,30 @@ function Discover() {
           }}
         >
           Chill
+        </p>
+        <p
+          className={currentOption == "hiphop" ? "selected" : ""}
+          onClick={() => {
+            setCurrentOption("hiphop");
+          }}
+        >
+          Hip-Hop
+        </p>
+        <p
+          className={currentOption == "soul" ? "selected" : ""}
+          onClick={() => {
+            setCurrentOption("soul");
+          }}
+        >
+          Soul
+        </p>
+        <p
+          className={currentOption == "indieAlt" ? "selected" : ""}
+          onClick={() => {
+            setCurrentOption("indieAlt");
+          }}
+        >
+          Indie Alt
         </p>
       </section>
       <section className="discoverRow">
@@ -120,6 +178,60 @@ function Discover() {
             <h2>Chill</h2>
             <div className="discoverPlaylistsRow">
               {chillCategory.map((playlist, index) => {
+                return (
+                  <Link key={index} to={`/playlist/${playlist.id}`}>
+                    <AlbumCard
+                      img={playlist.images[0].url}
+                      name={playlist.name}
+                    />
+                  </Link>
+                );
+              })}
+            </div>
+          </>
+        )}
+
+        {currentOption == "hiphop" && hiphopCategory && (
+          <>
+            <h2>Hip-Hop</h2>
+            <div className="discoverPlaylistsRow">
+              {hiphopCategory.map((playlist, index) => {
+                return (
+                  <Link key={index} to={`/playlist/${playlist.id}`}>
+                    <AlbumCard
+                      img={playlist.images[0].url}
+                      name={playlist.name}
+                    />
+                  </Link>
+                );
+              })}
+            </div>
+          </>
+        )}
+
+        {currentOption == "soul" && soulCategory && (
+          <>
+            <h2>Soul</h2>
+            <div className="discoverPlaylistsRow">
+              {soulCategory.map((playlist, index) => {
+                return (
+                  <Link key={index} to={`/playlist/${playlist.id}`}>
+                    <AlbumCard
+                      img={playlist.images[0].url}
+                      name={playlist.name}
+                    />
+                  </Link>
+                );
+              })}
+            </div>
+          </>
+        )}
+
+        {currentOption == "indieAlt" && indieAltCategory && (
+          <>
+            <h2>Indie Alt</h2>
+            <div className="discoverPlaylistsRow">
+              {indieAltCategory.map((playlist, index) => {
                 return (
                   <Link key={index} to={`/playlist/${playlist.id}`}>
                     <AlbumCard
