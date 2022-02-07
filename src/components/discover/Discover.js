@@ -16,6 +16,11 @@ function Discover() {
   const [indieAltCategory, setIndieAltCategory] = useState(null);
   const [hiphopCategory, setHiphopCategory] = useState(null);
 
+  const [jazzCategory, setJazzCategory] = useState(null);
+  const [rnbCategory, setRnbCategory] = useState(null);
+  const [countryCategory, setCountryCategory] = useState(null);
+  const [alternativeCategory, setAlternativeCategory] = useState(null);
+
   // Initialize Wrapper and set AccessCode
   let spotifyApi = new SpotifyWebApi();
   const setAccessCode = useSpotifyWrapper(accessKeyApi, spotifyApi);
@@ -81,6 +86,46 @@ function Discover() {
         }
       );
     }
+
+    if (!jazzCategory) {
+      spotifyApi.getCategoryPlaylists(
+        "jazz",
+        { limit: 10, country: "us" },
+        (err, result) => {
+          setJazzCategory(result.playlists.items);
+        }
+      );
+    }
+
+    if (!rnbCategory) {
+      spotifyApi.getCategoryPlaylists(
+        "rnb",
+        { limit: 10, country: "us" },
+        (err, result) => {
+          setRnbCategory(result.playlists.items);
+        }
+      );
+    }
+
+    if (!countryCategory) {
+      spotifyApi.getCategoryPlaylists(
+        "country",
+        { limit: 10, country: "us" },
+        (err, result) => {
+          setCountryCategory(result.playlists.items);
+        }
+      );
+    }
+
+    if (!alternativeCategory) {
+      spotifyApi.getCategoryPlaylists(
+        "alternative",
+        { limit: 10, country: "us" },
+        (err, result) => {
+          setAlternativeCategory(result.playlists.items);
+        }
+      );
+    }
   }, [spotifyApi]);
 
   return (
@@ -134,6 +179,38 @@ function Discover() {
           }}
         >
           Indie Alt
+        </p>
+        <p
+          className={currentOption == "jazz" ? "selected" : ""}
+          onClick={() => {
+            setCurrentOption("jazz");
+          }}
+        >
+          Jazz
+        </p>
+        <p
+          className={currentOption == "rnb" ? "selected" : ""}
+          onClick={() => {
+            setCurrentOption("rnb");
+          }}
+        >
+          RnB
+        </p>
+        <p
+          className={currentOption == "country" ? "selected" : ""}
+          onClick={() => {
+            setCurrentOption("country");
+          }}
+        >
+          Country
+        </p>
+        <p
+          className={currentOption == "alternative" ? "selected" : ""}
+          onClick={() => {
+            setCurrentOption("alternative");
+          }}
+        >
+          Alternative
         </p>
       </section>
       <section className="discoverRow">
@@ -232,6 +309,78 @@ function Discover() {
             <h2>Indie Alt</h2>
             <div className="discoverPlaylistsRow">
               {indieAltCategory.map((playlist, index) => {
+                return (
+                  <Link key={index} to={`/playlist/${playlist.id}`}>
+                    <AlbumCard
+                      img={playlist.images[0].url}
+                      name={playlist.name}
+                    />
+                  </Link>
+                );
+              })}
+            </div>
+          </>
+        )}
+
+        {currentOption == "jazz" && indieAltCategory && (
+          <>
+            <h2>Jazz</h2>
+            <div className="discoverPlaylistsRow">
+              {jazzCategory.map((playlist, index) => {
+                return (
+                  <Link key={index} to={`/playlist/${playlist.id}`}>
+                    <AlbumCard
+                      img={playlist.images[0].url}
+                      name={playlist.name}
+                    />
+                  </Link>
+                );
+              })}
+            </div>
+          </>
+        )}
+
+        {currentOption == "rnb" && rnbCategory && (
+          <>
+            <h2>RnB</h2>
+            <div className="discoverPlaylistsRow">
+              {rnbCategory.map((playlist, index) => {
+                return (
+                  <Link key={index} to={`/playlist/${playlist.id}`}>
+                    <AlbumCard
+                      img={playlist.images[0].url}
+                      name={playlist.name}
+                    />
+                  </Link>
+                );
+              })}
+            </div>
+          </>
+        )}
+
+        {currentOption == "country" && countryCategory && (
+          <>
+            <h2>Country</h2>
+            <div className="discoverPlaylistsRow">
+              {countryCategory.map((playlist, index) => {
+                return (
+                  <Link key={index} to={`/playlist/${playlist.id}`}>
+                    <AlbumCard
+                      img={playlist.images[0].url}
+                      name={playlist.name}
+                    />
+                  </Link>
+                );
+              })}
+            </div>
+          </>
+        )}
+
+        {currentOption == "alternative" && alternativeCategory && (
+          <>
+            <h2>Alternative</h2>
+            <div className="discoverPlaylistsRow">
+              {alternativeCategory.map((playlist, index) => {
                 return (
                   <Link key={index} to={`/playlist/${playlist.id}`}>
                     <AlbumCard

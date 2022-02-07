@@ -1,23 +1,27 @@
 #discover {
   padding: 10px;
+  text-align: center;
 }
 
 .optionsRow {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
 }
 
 .optionsRow p {
+  cursor: pointer;
   padding: 7px;
   background-color: rgba(117, 129, 182, 0.37);
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
   border-radius: 7px;
-  margin: 0 5px;
+  margin: 5px 5px;
 }
 
 .discoverRow {
-  border: 1px solid red;
   margin: 25px 0;
   width: 100%;
   display: flex;
