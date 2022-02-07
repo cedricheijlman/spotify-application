@@ -2,6 +2,20 @@
   padding: 10px;
 }
 
+.optionsRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.optionsRow p {
+  padding: 7px;
+  background-color: rgba(117, 129, 182, 0.37);
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  border-radius: 7px;
+  margin: 0 5px;
+}
+
 .discoverRow {
   border: 1px solid red;
   margin: 25px 0;

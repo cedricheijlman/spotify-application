@@ -52,28 +52,31 @@ function Discover() {
   return (
     <div id="discover">
       <h1>Discover</h1>
-      <section>
-        <a
+      <section className="optionsRow">
+        <p
+          className={currentOption == "pop" ? "selected" : ""}
           onClick={() => {
             setCurrentOption("pop");
           }}
         >
           Pop
-        </a>
-        <a
+        </p>
+        <p
+          className={currentOption == "rock" ? "selected" : ""}
           onClick={() => {
             setCurrentOption("rock");
           }}
         >
           Rock
-        </a>
-        <a
+        </p>
+        <p
+          className={currentOption == "chill" ? "selected" : ""}
           onClick={() => {
             setCurrentOption("chill");
           }}
         >
           Chill
-        </a>
+        </p>
       </section>
       <section className="discoverRow">
         {currentOption == "pop" && popCategory && (
