@@ -195,7 +195,7 @@ function ArtistPage() {
                       <Link key={album.id} to={`/album/${album.id}`}>
                         <AlbumCard
                           key={album.id}
-                          img={album.images[0].url}
+                          img={album.images[0] ? album.images[0].url : ""}
                           name={album.name}
                           releaseDate={album.release_date.slice(0, 4)}
                         />
@@ -221,7 +221,9 @@ function ArtistPage() {
                       to={`/artist/${artist.id}`}
                     >
                       <ArtistCard
-                        img={artist.images[0].url}
+                        img={
+                          artist.images[0] !== null ? artist.images[0].url : ""
+                        }
                         artistName={artist.name}
                       />
                     </Link>

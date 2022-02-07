@@ -31,7 +31,7 @@ function Home() {
       });
     }
   }, [spotifyApi]);
-  console.log(newReleases);
+
   return (
     <div id="home">
       <div className="home__choose">
@@ -50,22 +50,6 @@ function Home() {
           }}
         >
           Featured Playlists
-        </p>
-        <p
-          className={currentOption == "editor" ? "selected" : ""}
-          onClick={() => {
-            setCurrentOption("featured");
-          }}
-        >
-          Editor's Picks
-        </p>
-        <p
-          className={currentOption == "ee" ? "selected" : ""}
-          onClick={() => {
-            setCurrentOption("featured");
-          }}
-        >
-          Editor's Picks
         </p>
       </div>
 

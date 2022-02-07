@@ -204,7 +204,7 @@ function ProfilePage() {
                       <Link to={`/playlist/${playlist.id}`}>
                         <AlbumCard
                           name={playlist.name}
-                          img={playlist.images[0].url}
+                          img={playlist.images[0] ? playlist.images[0].url : ""}
                         />
                       </Link>
                     );
