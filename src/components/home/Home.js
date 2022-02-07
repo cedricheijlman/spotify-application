@@ -36,6 +36,7 @@ function Home() {
     <div id="home">
       <div className="home__choose">
         <p
+          className={currentOption == "newReleases" ? "selected" : ""}
           onClick={() => {
             setCurrentOption("newReleases");
           }}
@@ -43,6 +44,7 @@ function Home() {
           New Releases
         </p>
         <p
+          className={currentOption == "featuredPlaylists" ? "selected" : ""}
           onClick={() => {
             setCurrentOption("featuredPlaylists");
           }}
@@ -50,6 +52,7 @@ function Home() {
           Featured Playlists
         </p>
         <p
+          className={currentOption == "editor" ? "selected" : ""}
           onClick={() => {
             setCurrentOption("featured");
           }}
@@ -57,6 +60,7 @@ function Home() {
           Editor's Picks
         </p>
         <p
+          className={currentOption == "ee" ? "selected" : ""}
           onClick={() => {
             setCurrentOption("featured");
           }}

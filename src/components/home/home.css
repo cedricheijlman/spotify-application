@@ -24,14 +24,15 @@
   background-color: rgb(235, 235, 235);
   margin-left: 10px;
   margin-right: 10px;
-  padding: 7px;
-
+  padding: 10px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
   border-radius: 5px;
+  transition: all 0.3s;
 }
 
-.home__choose p:nth-child(1) {
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
-    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+.home__choose p:hover {
+  cursor: pointer;
 }
 
 .homeRow {
