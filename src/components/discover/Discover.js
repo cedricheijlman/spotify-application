@@ -1,19 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SpotifyWebApi from "spotify-web-api-js";
-import { CurrentTrackContext } from "../../CurrentTrackContext";
 import useSpotifyWrapper from "../../useSpotifyWrapper";
 import AlbumCard from "../main/AlbumCard";
-import PlaylistCard from "../main/AlbumCard";
+
 import "./discover.css";
 function Discover() {
   const accessKeyApi = sessionStorage.getItem("accessToken");
-  const { currentTrack, setCurrentTrack } = useContext(CurrentTrackContext);
   const [currentOption, setCurrentOption] = useState("pop");
   const [limit, setLimit] = useState(10);
   const [popCategory, setPopCategory] = useState(null);
   const [rockCategory, setRockCategory] = useState(null);
-
+  const [chillCategory, setChillCategory] = useState(null);
   // Initialize Wrapper and set AccessCode
   let spotifyApi = new SpotifyWebApi();
   const setAccessCode = useSpotifyWrapper(accessKeyApi, spotifyApi);
@@ -39,6 +37,16 @@ function Discover() {
         }
       );
     }
+
+    if (!chillCategory) {
+      spotifyApi.getCategoryPlaylists(
+        "chill",
+        { limit: 10, country: "us" },
+        (err, result) => {
+          setChillCategory(result.playlists.items);
+        }
+      );
+    }
   }, [spotifyApi]);
 
   return (
@@ -61,10 +69,10 @@ function Discover() {
         </a>
         <a
           onClick={() => {
-            setCurrentOption("indieRock");
+            setCurrentOption("chill");
           }}
         >
-          Indie Rock
+          Chill
         </a>
       </section>
       <section className="discoverRow">
@@ -88,9 +96,27 @@ function Discover() {
 
         {currentOption == "rock" && rockCategory && (
           <>
-            <h2>rock</h2>
+            <h2>Rock</h2>
             <div className="discoverPlaylistsRow">
               {rockCategory.map((playlist, index) => {
+                return (
+                  <Link key={index} to={`/playlist/${playlist.id}`}>
+                    <AlbumCard
+                      img={playlist.images[0].url}
+                      name={playlist.name}
+                    />
+                  </Link>
+                );
+              })}
+            </div>
+          </>
+        )}
+
+        {currentOption == "chill" && chillCategory && (
+          <>
+            <h2>Chill</h2>
+            <div className="discoverPlaylistsRow">
+              {chillCategory.map((playlist, index) => {
                 return (
                   <Link key={index} to={`/playlist/${playlist.id}`}>
                     <AlbumCard
