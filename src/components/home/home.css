@@ -3,6 +3,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-bottom: 50px;
+}
+
+#home h1 {
+  margin-top: 20px;
 }
 
 #home p {
@@ -29,7 +34,7 @@
     rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 }
 
-.featuredPlaylistsRow {
+.homeRow {
   display: flex;
   overflow-x: auto;
   justify-content: center;
