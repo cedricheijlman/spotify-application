@@ -28,7 +28,6 @@ function AlbumPage() {
     if (!album) {
       spotifyApi.getAlbum(albumId, {}, (err, result) => {
         setAlbum(result);
-        console.log("result", result);
       });
     }
   }, [albumId]);

@@ -14,10 +14,11 @@ function SearchPage() {
   const setAccessCode = useSpotifyWrapper(accessKeyApi, spotifyApi);
 
   const [currentOption, setCurrentOption] = useState("albums");
-
+  const [offset, setOffset] = useState({ albumOffset: 0, artistOffset: 0 });
   const [searchAlbums, setSearchAlbums] = useState("");
-  const [albums, setAlbums] = useState(null);
+  const [albums, setAlbums] = useState([]);
   const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     console.log(searchAlbums);
   }, [searchAlbums]);
@@ -27,8 +28,8 @@ function SearchPage() {
       Math.ceil(window.innerHeight + window.scrollY) >=
       document.documentElement.scrollHeight
     ) {
-      if (currentOption == "albums") {
-        changeOffset();
+      if (currentOption == "albums" && albums.length !== 0) {
+        setOffset({ ...offset, albumOffset: offset.albumOffset + 51 });
       }
     }
   };
@@ -38,35 +39,19 @@ function SearchPage() {
       setLoading(true);
       spotifyApi.searchAlbums(
         searchAlbums,
-        { offset: 0, limit: 50 },
+        { offset: offset.albumOffset, limit: 50 },
         (err, result) => {
-          setAlbums(result.albums);
-          console.log(result);
+          if (offset.albumOffset !== 0) {
+            setAlbums([...albums, ...result.albums.items]);
+          } else {
+            setAlbums(result.albums.items);
+          }
         }
       );
       setLoading(false);
     }
-  }, [searchAlbums]);
-
-  const changeOffset = () => {
-    if (albums && albums !== "") {
-      console.log("worked");
-      let offsetNew = albums.offset + 1;
-      spotifyApi.searchAlbums(
-        searchAlbums,
-        { offset: offsetNew, limit: 50 },
-        (err, result) => {
-          console.log(result);
-          setAlbums({
-            ...albums,
-            offset: offsetNew,
-            items: [...albums.items, result.albums.items],
-          });
-        }
-      );
-    }
-  };
-
+  }, [searchAlbums, offset]);
+  console.log(albums);
   return (
     <div id="searchPage">
       <h1>Search {currentOption}</h1>
@@ -117,10 +102,10 @@ function SearchPage() {
             {albums &&
               searchAlbums &&
               searchAlbums !== "" &&
-              albums !== "" &&
-              albums.items.map((album) => {
+              albums.length !== 0 &&
+              albums.map((album) => {
                 return (
-                  <Link to={`/album/${album.id}`}>
+                  <Link key={album.id} to={`/album/${album.id}`}>
                     <AlbumCard
                       name={album.name}
                       img={album.images[0] ? album.images[0].url : ""}

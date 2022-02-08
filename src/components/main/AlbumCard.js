@@ -8,13 +8,9 @@ function AlbumCard({ name, img, releaseDate, artist, artistId }) {
       <h5>{name}</h5>
       {releaseDate && <p>{releaseDate}</p>}
       {artist && artistId && (
-        <Link to={`artist/${artistId}`}>
-          <p
-            style={{ textAlign: "center", fontSize: "13px", fontWeight: "500" }}
-          >
-            {artist}
-          </p>
-        </Link>
+        <p style={{ textAlign: "center", fontSize: "13px", fontWeight: "500" }}>
+          {artist}
+        </p>
       )}
     </div>
   );
