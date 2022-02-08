@@ -28,6 +28,13 @@ function Dashboard({ accessKeyApi }) {
   // Play
   useEffect(() => setPlay(true), [currentTrack]);
 
+  // function Logout
+
+  const logOut = () => {
+    sessionStorage.removeItem("accessToken");
+    window.location.href = "http://localhost:3000";
+  };
+
   return (
     <>
       <div id="dashboard">
@@ -59,6 +66,12 @@ function Dashboard({ accessKeyApi }) {
               <p>Profile</p>
             </div>
           </Link>
+          <a onClick={logOut}>
+            <div className="dashboard__category">
+              <AccountCircleOutlined className="category__logo" />
+              <p>Logout</p>
+            </div>
+          </a>
         </div>
         <div className="dashboard__right">
           <Routes>
