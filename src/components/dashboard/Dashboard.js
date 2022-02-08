@@ -32,7 +32,10 @@ function Dashboard({ accessKeyApi }) {
 
   const logOut = () => {
     sessionStorage.removeItem("accessToken");
-    window.location.href = "http://localhost:3000";
+    window.location.href =
+      window.location.href !== "http://localhost:3000/"
+        ? "https://spotify-application.netlify.app/"
+        : "http://localhost:3000";
   };
 
   return (
