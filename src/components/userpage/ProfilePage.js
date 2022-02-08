@@ -74,7 +74,6 @@ function ProfilePage() {
   // get user playlists
   useEffect(() => {
     spotifyApi.getUserPlaylists({}, (err, result) => {
-      console.log(result);
       setPlaylists({ ...playlists, playlists: result.items });
     });
   }, []);

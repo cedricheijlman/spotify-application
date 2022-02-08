@@ -33,7 +33,6 @@ function ArtistPage() {
 
     spotifyApi.getArtistTopTracks(artistId, "US", {}, (err, result) => {
       setArtistTopTracks(result);
-      console.log(result);
     });
 
     spotifyApi.getArtistAlbums(
@@ -54,7 +53,6 @@ function ArtistPage() {
 
     spotifyApi.getArtistRelatedArtists(artistId, {}, (err, result) => {
       setRelatedArtists(result);
-      console.log("artist Info:", result);
     });
   }, [artistId, artistChange]);
 

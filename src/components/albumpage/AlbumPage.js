@@ -72,7 +72,6 @@ function AlbumPage() {
                             e.target.localName !== "img"
                           ) {
                             setCurrentTrack(item.uri);
-                            console.log(e);
                           }
                         }}
                         className="albumPage__trackItem"

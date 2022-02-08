@@ -118,7 +118,6 @@ function SearchPage() {
         searchPlaylists,
         { offset: offset.playlistOffset, limit: 50 },
         (err, result) => {
-          console.log(result);
           if (offset.playlistOffset !== 0) {
             setPlaylists([...playlists, ...result.playlists.items]);
           } else {

@@ -7,7 +7,6 @@ function Track({ setCurrentTrack, index, item, getSeconds }) {
       onClick={(e) => {
         if (e.target.localName !== "h6" && e.target.localName !== "img") {
           setCurrentTrack(item.uri);
-          console.log(e);
         }
       }}
       className="playlistPage__trackItem"
