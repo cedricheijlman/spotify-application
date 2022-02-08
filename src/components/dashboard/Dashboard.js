@@ -14,6 +14,8 @@ import ArtistPage from "../artistpage/ArtistPage";
 import { AccountCircleOutlined } from "@mui/icons-material";
 import ProfilePage from "../userpage/ProfilePage";
 import Discover from "../discover/Discover";
+import SearchIcon from "@mui/icons-material/Search";
+import SearchPage from "../searchpage/SearchPage";
 
 function Dashboard({ accessKeyApi }) {
   const { currentTrack, setCurrentTrack } = useContext(CurrentTrackContext);
@@ -39,6 +41,12 @@ function Dashboard({ accessKeyApi }) {
               <p>Home</p>
             </div>
           </Link>
+          <Link to="/search">
+            <div className="dashboard__category">
+              <SearchIcon className="category__logo" />
+              <p>Search</p>
+            </div>
+          </Link>
           <Link to="/discover">
             <div className="dashboard__category">
               <ExploreOutlinedIcon className="category__logo" />
@@ -56,6 +64,7 @@ function Dashboard({ accessKeyApi }) {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/discover" element={<Discover />} />
+            <Route path="/search" element={<SearchPage />} />
             <Route path="/playlist/:id" element={<PlaylistPage />} />
             <Route path="/album/:id" element={<AlbumPage />} />
             <Route path="/artist/:id" element={<ArtistPage />} />
