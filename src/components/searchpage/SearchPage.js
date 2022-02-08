@@ -21,6 +21,7 @@ function SearchPage() {
 
   useEffect(() => {
     console.log(searchAlbums);
+    setOffset({ ...offset, albumOffset: 0 });
   }, [searchAlbums]);
 
   window.onscroll = function (ev) {
@@ -50,7 +51,7 @@ function SearchPage() {
       );
       setLoading(false);
     }
-  }, [searchAlbums, offset]);
+  }, [offset]);
   console.log(albums);
   return (
     <div id="searchPage">
