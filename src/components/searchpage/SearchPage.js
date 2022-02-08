@@ -15,8 +15,6 @@ function SearchPage() {
   // Set AccessCode Spotify API
   const setAccessCode = useSpotifyWrapper(accessKeyApi, spotifyApi);
 
-  const [loading, setLoading] = useState(false);
-
   const [currentOption, setCurrentOption] = useState("albums");
   const [offset, setOffset] = useState({
     albumOffset: 0,
@@ -102,7 +100,6 @@ function SearchPage() {
     }
 
     if (currentOption == "artists" && searchArtists && searchArtists !== "") {
-      setLoading(true);
       spotifyApi.searchArtists(
         searchArtists,
         { offset: offset.artistOffset, limit: 50 },
@@ -219,7 +216,6 @@ function SearchPage() {
                   </Link>
                 );
               })}
-            {loading == true ? <h1>Loading...</h1> : ""}
           </div>
         </>
       )}
