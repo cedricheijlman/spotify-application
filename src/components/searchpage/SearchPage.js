@@ -4,6 +4,7 @@ import SpotifyWebApi from "spotify-web-api-js";
 import useSpotifyWrapper from "../../useSpotifyWrapper";
 import AlbumCard from "../main/AlbumCard";
 import ArtistCard from "../main/ArtistCard";
+import Track from "../main/Track";
 import "./searchpage.css";
 
 function SearchPage() {
@@ -21,6 +22,7 @@ function SearchPage() {
     albumOffset: 0,
     artistOffset: 0,
     playlistOffset: 0,
+    trackOffset: 0,
   });
 
   const [searchAlbums, setSearchAlbums] = useState("");
@@ -32,15 +34,20 @@ function SearchPage() {
   const [searchPlaylists, setSearchPlaylists] = useState("");
   const [playlists, setPlaylists] = useState([]);
 
+  const [searchTracks, setSearchTracks] = useState("");
+  const [tracks, setTracks] = useState([]);
+
   // Reset items
   useEffect(() => {
     setAlbums([]);
     setArtists([]);
     setPlaylists([]);
+    setTracks([]);
 
     setSearchAlbums("");
     setSearchArtists("");
     setSearchPlaylists("");
+    setSearchTracks("");
   }, [currentOption]);
 
   // Reset Page Offset
@@ -50,8 +57,9 @@ function SearchPage() {
       albumOffset: 0,
       artistOffset: 0,
       playlistOffset: 0,
+      trackOffset: 0,
     });
-  }, [searchAlbums, searchArtists, searchPlaylists]);
+  }, [searchAlbums, searchArtists, searchPlaylists, searchTracks]);
 
   // When user scrolls to bottom of page
   window.onscroll = function (ev) {
@@ -69,6 +77,10 @@ function SearchPage() {
 
       if (currentOption == "playlists" && playlists.length !== 0) {
         setOffset({ ...offset, playlistOffset: offset.playlistOffset + 51 });
+      }
+
+      if (currentOption == "tracks" && tracks.length !== 0) {
+        setOffset({ ...offset, trackOffset: offset.trackOffset + 51 });
       }
     }
   };
@@ -118,7 +130,31 @@ function SearchPage() {
         }
       );
     }
+
+    if (currentOption == "tracks" && playlists) {
+      spotifyApi.searchTracks(
+        searchTracks,
+        {
+          offset: offset.trackOffset,
+          limit: 50,
+        },
+        (err, result) => {
+          if (offset.trackOffset !== 0) {
+            setTracks([...tracks, ...result.tracks.items]);
+          } else {
+            setTracks(result.tracks.items);
+          }
+        }
+      );
+    }
   }, [offset]);
+
+  // Track length
+  const getSeconds = (millis) => {
+    let minutes = Math.floor(millis / 60000);
+    let seconds = ((millis % 60000) / 1000).toFixed(0);
+    return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+  };
 
   return (
     <div id="searchPage">
@@ -190,7 +226,25 @@ function SearchPage() {
 
       {currentOption == "tracks" && (
         <>
-          <input placeholder="Search tracks" />
+          <input
+            onChange={(e) => {
+              setSearchTracks(e.target.value);
+            }}
+            placeholder="Search Tracks"
+          />
+          <div className="searchRow">
+            {tracks.length !== 0 &&
+              tracks.map((track, index) => {
+                return (
+                  <Track
+                    key={index + 1}
+                    item={track}
+                    index={index}
+                    getSeconds={getSeconds}
+                  />
+                );
+              })}
+          </div>
         </>
       )}
 
@@ -200,13 +254,13 @@ function SearchPage() {
             onChange={(e) => {
               setSearchArtists(e.target.value);
             }}
-            placeholder="Search artists"
+            placeholder="Search Artists"
           />
           <div className="searchRow">
             {artists.length !== 0 &&
               artists.map((artist) => {
                 return (
-                  <Link to={`/artist/${artist.id}`}>
+                  <Link key={artist.id} to={`/artist/${artist.id}`}>
                     <ArtistCard
                       img={artist.images[0] ? artist.images[0].url : ""}
                       artistName={artist.name}
@@ -229,7 +283,14 @@ function SearchPage() {
           <div className="searchRow">
             {playlists.length !== 0 &&
               playlists.map((playlist) => {
-                return <h1>{playlist.name}</h1>;
+                return (
+                  <Link key={playlist.id} to={`/playlist/${playlist.id}`}>
+                    <AlbumCard
+                      img={playlist.images[0] ? playlist.images[0].url : ""}
+                      name={playlist.name}
+                    />
+                  </Link>
+                );
               })}
           </div>
         </>

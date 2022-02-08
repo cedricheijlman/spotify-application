@@ -59,7 +59,7 @@ function Home() {
           <div className="homeRow">
             {newReleases.map((album) => {
               return (
-                <Link to={`/album/${album.id}`}>
+                <Link key={album.id} to={`/album/${album.id}`}>
                   <AlbumCard
                     name={album.name}
                     artist={album.artists[0].name}

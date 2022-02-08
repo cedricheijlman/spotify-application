@@ -29,7 +29,6 @@ function PlaylistPage() {
     if (!playlist) {
       spotifyApi.getPlaylist(playlistId, {}, (err, result) => {
         setPlaylist(result);
-        console.log(result);
       });
     }
   }, [playlistId]);
@@ -39,7 +38,6 @@ function PlaylistPage() {
     if (playlist) {
       spotifyApi.getPlaylistTracks(playlistId, {}, (err, result) => {
         setPlaylistTracks(result);
-        console.log("Playlist tracks", result);
       });
     }
   }, [playlist]);
