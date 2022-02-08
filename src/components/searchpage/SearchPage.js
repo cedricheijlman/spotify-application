@@ -128,7 +128,7 @@ function SearchPage() {
       );
     }
 
-    if (currentOption == "tracks" && playlists) {
+    if (currentOption == "tracks" && tracks && searchTracks !== "") {
       spotifyApi.searchTracks(
         searchTracks,
         {
