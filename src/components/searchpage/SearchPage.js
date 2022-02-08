@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import SpotifyWebApi from "spotify-web-api-js";
 import useSpotifyWrapper from "../../useSpotifyWrapper";
 import AlbumCard from "../main/AlbumCard";
+import ArtistCard from "../main/ArtistCard";
 import "./searchpage.css";
 
 function SearchPage() {
@@ -13,17 +14,46 @@ function SearchPage() {
   // Set AccessCode Spotify API
   const setAccessCode = useSpotifyWrapper(accessKeyApi, spotifyApi);
 
-  const [currentOption, setCurrentOption] = useState("albums");
-  const [offset, setOffset] = useState({ albumOffset: 0, artistOffset: 0 });
-  const [searchAlbums, setSearchAlbums] = useState("");
-  const [albums, setAlbums] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    console.log(searchAlbums);
-    setOffset({ ...offset, albumOffset: 0 });
-  }, [searchAlbums]);
+  const [currentOption, setCurrentOption] = useState("albums");
+  const [offset, setOffset] = useState({
+    albumOffset: 0,
+    artistOffset: 0,
+    playlistOffset: 0,
+  });
 
+  const [searchAlbums, setSearchAlbums] = useState("");
+  const [albums, setAlbums] = useState([]);
+
+  const [searchArtists, setSearchArtists] = useState("");
+  const [artists, setArtists] = useState([]);
+
+  const [searchPlaylists, setSearchPlaylists] = useState("");
+  const [playlists, setPlaylists] = useState([]);
+
+  // Reset items
+  useEffect(() => {
+    setAlbums([]);
+    setArtists([]);
+    setPlaylists([]);
+
+    setSearchAlbums("");
+    setSearchArtists("");
+    setSearchPlaylists("");
+  }, [currentOption]);
+
+  // Reset Page Offset
+  useEffect(() => {
+    setOffset({
+      ...offset,
+      albumOffset: 0,
+      artistOffset: 0,
+      playlistOffset: 0,
+    });
+  }, [searchAlbums, searchArtists, searchPlaylists]);
+
+  // When user scrolls to bottom of page
   window.onscroll = function (ev) {
     if (
       Math.ceil(window.innerHeight + window.scrollY) >=
@@ -32,12 +62,20 @@ function SearchPage() {
       if (currentOption == "albums" && albums.length !== 0) {
         setOffset({ ...offset, albumOffset: offset.albumOffset + 51 });
       }
+
+      if (currentOption == "artists" && artists.length !== 0) {
+        setOffset({ ...offset, artistOffset: offset.artistOffset + 51 });
+      }
+
+      if (currentOption == "playlists" && playlists.length !== 0) {
+        setOffset({ ...offset, playlistOffset: offset.playlistOffset + 51 });
+      }
     }
   };
 
+  // Fetch search
   useEffect(() => {
-    if (searchAlbums && searchAlbums !== "") {
-      setLoading(true);
+    if (currentOption == "albums" && searchAlbums && searchAlbums !== "") {
       spotifyApi.searchAlbums(
         searchAlbums,
         { offset: offset.albumOffset, limit: 50 },
@@ -49,10 +87,39 @@ function SearchPage() {
           }
         }
       );
-      setLoading(false);
+    }
+
+    if (currentOption == "artists" && searchArtists && searchArtists !== "") {
+      setLoading(true);
+      spotifyApi.searchArtists(
+        searchArtists,
+        { offset: offset.artistOffset, limit: 50 },
+        (err, result) => {
+          if (offset.artistOffset !== 0) {
+            setArtists([...artists, ...result.artists.items]);
+          } else {
+            setArtists(result.artists.items);
+          }
+        }
+      );
+    }
+
+    if (currentOption == "playlists" && playlists && searchPlaylists !== "") {
+      spotifyApi.searchPlaylists(
+        searchPlaylists,
+        { offset: offset.playlistOffset, limit: 50 },
+        (err, result) => {
+          console.log(result);
+          if (offset.playlistOffset !== 0) {
+            setPlaylists([...playlists, ...result.playlists.items]);
+          } else {
+            setPlaylists(result.playlists.items);
+          }
+        }
+      );
     }
   }, [offset]);
-  console.log(albums);
+
   return (
     <div id="searchPage">
       <h1>Search {currentOption}</h1>
@@ -129,13 +196,42 @@ function SearchPage() {
 
       {currentOption == "artists" && (
         <>
-          <input placeholder="Search artists" />
+          <input
+            onChange={(e) => {
+              setSearchArtists(e.target.value);
+            }}
+            placeholder="Search artists"
+          />
+          <div className="searchRow">
+            {artists.length !== 0 &&
+              artists.map((artist) => {
+                return (
+                  <Link to={`/artist/${artist.id}`}>
+                    <ArtistCard
+                      img={artist.images[0] ? artist.images[0].url : ""}
+                      artistName={artist.name}
+                    />
+                  </Link>
+                );
+              })}
+          </div>
         </>
       )}
 
       {currentOption == "playlists" && (
         <>
-          <input placeholder="Search playlists" />
+          <input
+            onChange={(e) => {
+              setSearchPlaylists(e.target.value);
+            }}
+            placeholder="Search Playlists"
+          />
+          <div className="searchRow">
+            {playlists.length !== 0 &&
+              playlists.map((playlist) => {
+                return <h1>{playlist.name}</h1>;
+              })}
+          </div>
         </>
       )}
     </div>
